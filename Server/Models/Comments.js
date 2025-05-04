@@ -1,21 +1,20 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require(".../Config/db.js");
 
-const Photos = sequelize.define("Photos", {
+const Comments = await sequelize.define("Comments", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  albumId: {
+  postId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: "Albums",
+      model: "Posts",
       key: "id"
     },
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE'
   },
-  title: { type: DataTypes.STRING, allowNull: false },
-  url: { type: DataTypes.STRING, allowNull: false },
-  thumbnailUrl: { type: DataTypes.STRING, allowNull: false },
+  name: { type: DataTypes.STRING, allowNull: false },
+  body: { type: DataTypes.STRING, allowNull: false },
 });
 
-module.exports = Photos;
+module.exports = Comments;

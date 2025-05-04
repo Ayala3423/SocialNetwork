@@ -1,7 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require(".../Config/db.js");
 
-const Passwords = sequelize.define("Passwords", {
+const Todos = await sequelize.define("Todos", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -12,7 +13,8 @@ const Passwords = sequelize.define("Passwords", {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE'
   },
-  Password: { type: DataTypes.STRING, allowNull: false },
+  title: { type: DataTypes.STRING, allowNull: false },
+  completed: { type: DataTypes.BOOLEAN, allowNull: true }
 });
 
-module.exports = Passwords;
+module.exports = Todos;
