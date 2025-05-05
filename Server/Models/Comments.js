@@ -15,6 +15,14 @@ const Comments = await sequelize.define("Comments", {
   },
   name: { type: DataTypes.STRING, allowNull: false },
   body: { type: DataTypes.STRING, allowNull: false },
+  is_deleted: {
+    type: sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  deleted_at: {
+    type: sequelize.DATE,
+    allowNull: true
+  }
 });
 
 module.exports = Comments;

@@ -14,7 +14,15 @@ const Todos = await sequelize.define("Todos", {
     onDelete: 'CASCADE'
   },
   title: { type: DataTypes.STRING, allowNull: false },
-  completed: { type: DataTypes.BOOLEAN, allowNull: true }
+  completed: { type: DataTypes.BOOLEAN, allowNull: true },
+  is_deleted: {
+    type: sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  deleted_at: {
+    type: sequelize.DATE,
+    allowNull: true
+  }
 });
 
 module.exports = Todos;

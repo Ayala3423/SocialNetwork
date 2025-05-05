@@ -17,4 +17,4 @@ Albums.hasMany(Photos, { foreignKey: "albumId" });
 Photos.belongsTo(Albums, { foreignKey: "albumId" });
 
 Users.hasOne(Passwords, { foreignKey: "userId" });
-Passwords.belongsTo(Users, { foreignKey: "userId" });
+Passwords.belongsTo(Users, { foreignKey: "userId" }); 
