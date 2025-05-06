@@ -1,29 +1,13 @@
-require("./models/index");
-const express = require("express");
-const cors = require("cors");
-const routes = require("./routes/routes");
-const sequelize = require("./config/database");
+import app from '../Api/app.js'; // הוספתי .js בקובץ, כי ב-ES6 מודולים נדרשים סיומות קבצים
+import sequelize from '../DB/Config/db.js'; // גם פה הוספתי .js
 
-const app = express();
-app.use(express.json());
-app.use(cors());
+const start = async () => {
+    try {
+        await sequelize.sync();
+        app.listen(5000, () => console.log('Server is running on port 5000'));
+    } catch (err) {
+        console.error('Error starting the server:', err);
+    }
+};
 
-app.use("/users", routes);
-app.use("/posts", routes);
-app.use("/posts/:id/comments", routes);
-app.use("/todos", routes);
-
-try {
-    await sequelize.sync().then(() => {
-        app.listen(5000, () => console.log("Server is running on port 5000"));
-    });
-} catch (err) {
-    console.error("Error connecting to server:", err);
-}
-
-try {
-    await sequelize.sync({ force: false });
-    console.log("Database synced successfully");
-} catch (err) {
-    console.error("Error syncing database:", err);
-}
+start();

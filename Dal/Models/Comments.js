@@ -1,7 +1,7 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require(".../Config/db.js");
+import { DataTypes } from 'sequelize'; 
+import sequelize from '../../DB/Config/db.js';  
 
-const Comments = await sequelize.define("Comments", {
+const Comments = sequelize.define("Comments", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   postId: {
     type: DataTypes.INTEGER,
@@ -16,13 +16,13 @@ const Comments = await sequelize.define("Comments", {
   name: { type: DataTypes.STRING, allowNull: false },
   body: { type: DataTypes.STRING, allowNull: false },
   is_deleted: {
-    type: sequelize.BOOLEAN,
-    defaultValue: false
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
   },
   deleted_at: {
-    type: sequelize.DATE,
+    type: DataTypes.DATE,
     allowNull: true
   }
 });
 
-module.exports = Comments;
+export default Comments;

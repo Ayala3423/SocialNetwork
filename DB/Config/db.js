@@ -1,6 +1,14 @@
-require("dotenv").config();
-const mysql = require('mysql2/promise');
-const { Sequelize } = require('sequelize');
+import dotenv from 'dotenv';
+import mysql from 'mysql2/promise';
+import { Sequelize } from 'sequelize';
+
+dotenv.config();
+
+console.log("ENV Loaded:", {
+  DB_ROOT: process.env.DB_ROOT,
+  DB_PASSWORD: process.env.DB_PASSWORD
+});
+
 
 const connection = await mysql.createConnection({
   host: process.env.DB_HOST,
@@ -23,4 +31,4 @@ sequelize
   .then(() => console.log("Successfully connected to newly created MySQL DB"))
   .catch((err) => console.error("Error connecting to MySQL:", err));
 
-module.exports = sequelize;
+export default sequelize;

@@ -1,7 +1,7 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require(".../Config/db.js");
+import { DataTypes } from 'sequelize'; 
+import sequelize from '../../DB/Config/db.js';  
 
-const Passwords = await sequelize.define("Passwords", {
+const Passwords = sequelize.define("Passwords", {
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -15,4 +15,4 @@ const Passwords = await sequelize.define("Passwords", {
   Password: { type: DataTypes.STRING, allowNull: false },
 });
 
-module.exports = Passwords;
+export default Passwords;

@@ -1,7 +1,7 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require(".../Config/db.js");
+import { DataTypes } from 'sequelize'; 
+import sequelize from '../../DB/Config/db.js';  
 
-const Posts = await sequelize.define("Posts", {
+const Posts = sequelize.define("Posts", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   userId: {
     type: DataTypes.INTEGER,
@@ -16,13 +16,13 @@ const Posts = await sequelize.define("Posts", {
   title: { type: DataTypes.STRING, allowNull: false },
   body: { type: DataTypes.STRING, allowNull: false },
   is_deleted: {
-    type: sequelize.BOOLEAN,
-    defaultValue: false
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
   },
   deleted_at: {
-    type: sequelize.DATE,
+    type: DataTypes.DATE,
     allowNull: true
   }
 });
 
-module.exports = Posts;
+export default Posts;

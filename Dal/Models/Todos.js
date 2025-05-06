@@ -1,7 +1,7 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require(".../Config/db.js");
+import { DataTypes } from 'sequelize'; 
+import sequelize from '../../DB/Config/db.js';  
 
-const Todos = await sequelize.define("Todos", {
+const Todos = sequelize.define("Todos", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   userId: {
     type: DataTypes.INTEGER,
@@ -16,13 +16,13 @@ const Todos = await sequelize.define("Todos", {
   title: { type: DataTypes.STRING, allowNull: false },
   completed: { type: DataTypes.BOOLEAN, allowNull: true },
   is_deleted: {
-    type: sequelize.BOOLEAN,
-    defaultValue: false
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
   },
   deleted_at: {
-    type: sequelize.DATE,
+    type: DataTypes.DATE,
     allowNull: true
   }
 });
 
-module.exports = Todos;
+export default Todos;
