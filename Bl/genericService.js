@@ -16,9 +16,9 @@ const service = {
         return genericDAL.createItem(model, data);
     },
 
-    updateItemField: async (table, id, field, value) => {
+    updateItemField: async (table, id, body) => {
         const model = genericDAL.getModelByName(capitalize(table));
-        return genericDAL.updateFields(model, id, {[field]: value});
+        return genericDAL.updateFields(model, id, {[body.field]: body.value});
     },
 
     softDeleteItem: async (table, id) => {

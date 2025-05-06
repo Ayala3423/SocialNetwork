@@ -1,14 +1,13 @@
-import express from 'express';  // שינה את require ל-import
-import cors from 'cors';  // שינה את require ל-import
-import routes from '../Api/routes/routes.js';  // הוספתי .js לקובץ המיובא
+import express from 'express'; 
+import cors from 'cors'; 
+import routes from '../Api/routes/routes.js'; 
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/users", routes);
-app.use("/posts", routes);
-app.use("/posts/:id/comments", routes);
-app.use("/todos", routes);
+app.use("/", routes); 
+app.use("/:table", routes);
+app.use("/:table/:id/:metaTable", routes);
 
 export default app;

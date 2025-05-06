@@ -1,5 +1,5 @@
-import app from '../Api/app.js'; // הוספתי .js בקובץ, כי ב-ES6 מודולים נדרשים סיומות קבצים
-import sequelize from '../DB/Config/db.js'; // גם פה הוספתי .js
+import app from '../Api/app.js'; 
+import sequelize from '../DB/Config/db.js'; 
 
 const start = async () => {
     try {

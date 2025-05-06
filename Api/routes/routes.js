@@ -1,10 +1,10 @@
-import express from 'express';  // שינה את require ל-import
+import express from 'express';  
 const router = express.Router();
-import userController from '../controller/userController.js';  // הוספתי .js לקובץ המיובא
-import genericController from '../controller/genericConterller.js';  // הוספתי .js לקובץ המיובא
+import userController from '../controller/userController.js';
+import genericController from '../controller/genericConterller.js';
 
-router.get('/login', userController.login);
-router.get('/signup', userController.signup);
+router.post('/login', userController.login);
+router.post('/signup', userController.signup);
 
 router.get('/', genericController.getAll);
 router.get('/:id', genericController.get);

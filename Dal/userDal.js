@@ -4,9 +4,17 @@ import Passwords from './Models/Passwords.js';  // הוספתי .js לקובץ �
 const userDAL = {
     findByUsername: (username) => Users.findOne({ where: { username } }),
 
-    createUser: (userData) => Users.create(userData),
+    createUser: (userData) => {
+        console.log("Creating user with data:", JSON.stringify(userData, null, 2));
+        return Users.create(userData);
+    },
 
-    savePassword: (userId, hashedPassword) => Passwords.create({ userId, hashedPassword }),
+    savePassword: (userId, hashedPassword) => {
+        console.log({ userId, hashedPassword });
+        Passwords.create({ userId, Password: hashedPassword });
+
+    },
+
 
     getPasswordByUserId: (userId) => Passwords.findOne({ where: { userId } }),
 };
