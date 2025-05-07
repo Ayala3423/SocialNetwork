@@ -1,4 +1,4 @@
-import genericDAL from "../Dal/genericDal.js"; // הוספתי .js לקובץ המיובא
+import genericDAL from "../Dal/genericDal.js";
 
 const service = {
     getItem: async (table, id) => {
@@ -11,14 +11,14 @@ const service = {
         return genericDAL.findAll(model);
     },
 
-    createItem: async (table, data) => {
-        const model = genericDAL.getModelByName(capitalize(table));
+    createItem: async (table, data) => {    
+        const model = genericDAL.getModelByName(capitalize(table));        
         return genericDAL.createItem(model, data);
     },
 
     updateItemField: async (table, id, body) => {
         const model = genericDAL.getModelByName(capitalize(table));
-        return genericDAL.updateFields(model, id, {[body.field]: body.value});
+        return genericDAL.updateFields(model, id, body);
     },
 
     softDeleteItem: async (table, id) => {

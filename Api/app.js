@@ -7,7 +7,5 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/", routes); 
-app.use("/:table", routes);
-app.use("/:table/:id/:metaTable", routes);
 
 export default app;
