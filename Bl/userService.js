@@ -1,5 +1,5 @@
 import userDAL from "../Dal/userDal.js";
-import { hashPassword, isPasswordValid } from "../Bl/middleware/authMiddleware.js";
+import { hashPassword, isPasswordValid } from "./utils/utils.js";
 
 const userService = {
     signup: async (userData) => {

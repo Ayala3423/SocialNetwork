@@ -1,4 +1,5 @@
 import genericDAL from "../Dal/genericDal.js";
+import { capitalize } from "./utils/utils.js";
 
 const service = {
     getItem: async (table, query) => {
@@ -37,7 +38,3 @@ const service = {
 };
 
 export default service;
-
-function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
