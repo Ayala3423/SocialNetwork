@@ -1,9 +1,9 @@
 import genericDAL from "../Dal/genericDal.js";
 
 const service = {
-    getItem: async (table, id) => {
-        const model = genericDAL.getModelByName(capitalize(table));
-        return genericDAL.findById(model, id);
+    getItem: async (table, query) => {
+        const model = genericDAL.getModelByName(capitalize(table));        
+        return genericDAL.findByField(model, query);
     },
 
     getAllItems: async (table) => {

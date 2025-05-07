@@ -9,13 +9,17 @@ const models = { Users, Posts, Todos, Comments, Passwords };
 const genericDAL = {
     getModelByName: (name) => models[name],
 
-    findById: (model, id) =>
-        model.findOne({
+    findByField: (model, query) => {
+        const field = Object.keys(query)[0];
+        const value = query[field];    
+        return model.findAll({
             where: {
-                id,
+                [field]: value,
                 is_deleted: false
             }
-        }),    
+        });
+    },
+     
 
     findAll: (model) => 
         model.findAll({
