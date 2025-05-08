@@ -1,24 +1,20 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 
-const API_URL = "http://localhost:5000";
-
-export const signup = async (data) => {
+const registerAuth = async (endpoint, body, onSuccess, onError) => {
     try {
-        const response = await axios.post(`${API_URL}/signup`, data);
-        return response.data;
+        const response = await axios.post(`${API_URL}/${endpoint}`, body);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+        }
+        const data = await response.json();
+        if (onSuccess)
+            onSuccess(data);
+        return response.body;
     } catch (error) {
-        console.error("Error signing up:", error.response?.data || error.message);
-        throw error;
+        console.error(error);
+        if (onError) onError(error.message);
     }
 };
 
-export const login = async (data) => {
-    try {
-        const response = await axios.post(`${API_URL}/login`, data);
-        return response.data;
-    } catch (error) {
-        console.error("Error logging in:", error.response?.data || error.message);
-        throw error;
-    }
-};
+export const signup = (body) => registerAuth("signup", body);
+export const login = (body) => registerAuth("login", body);

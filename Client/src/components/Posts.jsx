@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
 import { useContext } from 'react';
 import { CurrentUser } from './App';
-import { fetchData } from './fetchData';
 import Search from './Search';
 import Sort from './Sort';
 import Add from './Add';
 import Delete from './Delete';
 import Update from './Update';
-import { deleteItems } from '../js/deleteItems';
 import '../style/Posts.css';
+import { apiService } from '../../services/genericServeices';
 
 function Posts() {
     const [userPosts, setUserPosts] = useState([]);
@@ -28,12 +27,15 @@ function Posts() {
             setError("User is not logged in");
             return;
         }
-        fetchData({
-            type: "posts",
-            params: { userId: currentUser.id },
-            onSuccess: (data) => setUserPosts(data),
-            onError: (err) => setError(`Failed to fetch posts: ${err}`),
-        });
+        const fetchUserPosts = async () => {
+            await apiService.getById({
+                table: "Posts",
+                id: currentUser.id,
+                onSuccess: (data) => setUserPosts(data),
+                onError: (err) => setError(`Failed to fetch posts: ${err}`),
+            });
+        }
+        fetchUserPosts();
     }, [currentUser.id, isChange]);
 
     useEffect(() => {
@@ -42,11 +44,14 @@ function Posts() {
             setError("User is not logged in");
             return;
         }
-        fetchData({
-            type: "posts",
-            onSuccess: (data) => setAllPosts(data),
-            onError: (err) => setError(`Failed to fetch posts: ${err}`),
-        });
+        const fetchAllPosts = async () => {
+            await apiService.getAll({
+                table: "Posts",
+                onSuccess: (data) => setAllPosts(data),
+                onError: (err) => setError(`Failed to fetch posts: ${err}`),
+            });
+        };
+        fetchAllPosts();
     }, [isChange]);
 
     useEffect(() => {
@@ -71,9 +76,9 @@ function Posts() {
         <>
             <div className='control'>
                 <button onClick={() => setIsAllPosts((prev) => !prev)}>{isAllPost == 0 ? "All Posts" : "My Posts"}</button>
-                <Sort type={"posts"} setIsChange={setIsChange} options={["id", "title"]} userData={userPosts} setUserData={setUserPosts} />
-                <Search type={"posts"} setIsChange={setIsChange} options={["All", "ID", "Title"]} data={userPosts} setData={setUserPosts} />
-                <Add type={"posts"} setIsChange={setIsChange} inputs={["title", "body"]} setData={setUserPosts} defaultValue={{ userId: currentUser.id }} />
+                <Sort type={"Posts"} setIsChange={setIsChange} options={["id", "title"]} userData={userPosts} setUserData={setUserPosts} />
+                <Search type={"Posts"} setIsChange={setIsChange} options={["All", "ID", "Title"]} data={userPosts} setData={setUserPosts} />
+                <Add type={"Posts"} setIsChange={setIsChange} inputs={["title", "body"]} setData={setUserPosts} defaultValue={{ userId: currentUser.id }} />
             </div>
             <div className="container">
                 <h1>Posts</h1>
@@ -93,8 +98,7 @@ function Posts() {
                                 </div>
                                 <div className='post-actions'>
                                     {post.userId == currentUser.id && <Update type={"posts"} itemId={post.id} setIsChange={setIsChange} inputs={["title", "body"]} />}
-                                    {post.userId == currentUser.id && <Delete type={"posts"} itemId={post.id} setIsChange={setIsChange} deleteChildren={deleteItems} typeOfChild={"comments"} />}
-
+                                    {post.userId == currentUser.id && <Delete type={"posts"} itemId={post.id} setIsChange={setIsChange} />}
                                 </div>
                             </div>
                         ))}

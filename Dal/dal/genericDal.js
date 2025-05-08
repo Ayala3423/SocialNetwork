@@ -1,9 +1,9 @@
 import Sequelize from "sequelize";
-import Users from './Models/Users.js'; 
-import Todos from './Models/Todos.js'; 
-import Posts from './Models/Posts.js'; 
-import Comments from './Models/Comments.js'; 
-import Passwords from './Models/Passwords.js'; 
+import Users from '../Models/Users.js'; 
+import Todos from '../Models/Todos.js'; 
+import Posts from '../Models/Posts.js'; 
+import Comments from '../Models/Comments.js'; 
+import Passwords from '../Models/Passwords.js'; 
 const models = { Users, Posts, Todos, Comments, Passwords };
 
 const genericDAL = {

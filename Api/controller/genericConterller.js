@@ -1,4 +1,4 @@
-import service from "../../Bl/genericService.js";
+import service from "../../Bl/services/genericService.js";
 
 const genericConterller = {
     get: async (req, res) => {

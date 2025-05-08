@@ -1,26 +1,15 @@
-import userDAL from "../Dal/userDal.js";
-import { hashPassword, isPasswordValid } from "./utils/utils.js";
+import userDAL from "../../Dal/userDal.js";
+import { hashPassword, isPasswordValid } from "../utils/utils.js";
 
 const userService = {
-    signup: async (userData) => {
-        console.log("123456789");
-        
-        
+    signup: async (userData) => { 
         const { username, password, ...rest } = userData;
-        
         const existingUser = await userDAL.findByUsername(username);
-
         if (existingUser) {
             throw new Error("Username already taken");
         }
-        
         const newUser = await userDAL.createUser({ username, ...rest });
-        console.log(newUser);
-        console.log(password);
-        
-        const hashed = await hashPassword(password);
-        console.log("hashed1", hashed);
-        
+        const hashed = await hashPassword(password);        
         await userDAL.savePassword(newUser.id, hashed);
         return newUser;
     },

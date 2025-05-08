@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { fetchData } from "./fetchData";
+import { apiService } from "../../services/genericServeices";
 function Update({ type, itemId, setIsChange, inputs }) {
     const [screen, setScreen] = useState(0);
     const [formData, setFormData] = useState({});
@@ -18,9 +18,9 @@ function Update({ type, itemId, setIsChange, inputs }) {
         e.target.reset();
         setScreen(0);
         try {
-            await fetchData({
-                type: `${type}/${itemId}`,
-                method: "PATCH",
+            await apiService.patch({
+                table: type,
+                id: itemId,
                 body: formData,
                 onSuccess: (result) => {
                     console.log("Update successful:", result);

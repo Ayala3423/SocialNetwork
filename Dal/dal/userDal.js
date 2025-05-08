@@ -1,5 +1,5 @@
-import Users from './Models/Users.js';  // הוספתי .js לקובץ המיובא
-import Passwords from './Models/Passwords.js';  // הוספתי .js לקובץ המיובא
+import Users from '../Models/Users.js';  // הוספתי .js לקובץ המיובא
+import Passwords from '../Models/Passwords.js';  // הוספתי .js לקובץ המיובא
 
 const userDAL = {
     findByUsername: (username) => Users.findOne({ where: { username } }),
@@ -12,9 +12,7 @@ const userDAL = {
     savePassword: (userId, hashedPassword) => {
         console.log({ userId, hashedPassword });
         Passwords.create({ userId, Password: hashedPassword });
-
     },
-
 
     getPasswordByUserId: (userId) => Passwords.findOne({ where: { userId } }),
 };

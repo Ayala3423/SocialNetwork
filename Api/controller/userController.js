@@ -1,10 +1,10 @@
-import userService from "../../Bl/userService.js";
+import userService from "../../Bl/services/userService";
 
 const userController = {
     signup: async (req, res) => {
         try {
             const newUser = await userService.signup(req.body);
-            const token = generateToken(user.id, user.username);
+            const token = generateToken(newUser.id, newUser.username, req.body.password);
             res.status(201).json({
                 message: "User successfully registered",
                 token,
@@ -17,9 +17,9 @@ const userController = {
 
     login: async (req, res) => {
         try {
-            const user = await userService.login(req.body);
-            if (!user) return res.status(401).json({ message: 'Invalid credentials' });
-            const token = generateToken(user.id, user.username);
+            const newUser = await userService.login(req.body);
+            if (!newUser) return res.status(401).json({ message: 'Invalid credentials' });
+            const token = generateToken(newUser.id, newUser.username, req.body.password);
             res.status(201).json({
                 message: "User successfully registered",
                 token,

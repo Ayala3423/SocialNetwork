@@ -1,27 +1,36 @@
 import { useState, createContext, useMemo } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import Cookies from 'js-cookie'
 import Navigation from './Navigation'
 import LogIn from './LogIn'
 import Register from './Register'
 import Home from './Home'
-import Albums from './Albums';
-import Photos from './Photos'
 import Posts from './Posts'
 import Comments from './Comments'
 import Todos from './Todos'
-import Info from './Info';
+import Info from './Info'
 import ErrorPage from './ErrorPage'
 import '../style/App.css'
 
-export const CurrentUser = createContext([]);
+export const CurrentUser = createContext([])
 
 function App() {
   const initialCurrentUser = useMemo(() => {
-    const storedUser = localStorage.getItem("currentUser");
-    return storedUser ? JSON.parse(storedUser) : null;
-  }, []);
-  const [currentUser, setCurrentUser] = useState(initialCurrentUser);
-  const [isShowInfo, setIsShowInfo] = useState(0);
+    const cookieUser = Cookies.get('currentUser')
+    return cookieUser ? JSON.parse(cookieUser) : null
+  }, [])
+  
+  const [currentUser, _setCurrentUser] = useState(initialCurrentUser)
+  const [isShowInfo, setIsShowInfo] = useState(0)
+
+  const setCurrentUser = (user) => {
+    _setCurrentUser(user)
+    if (user) {
+      Cookies.set('currentUser', JSON.stringify(user), { expires: 1 }) // expires in 1 day
+    } else {
+      Cookies.remove('currentUser')
+    }
+  }
 
   return (
     <>
@@ -32,17 +41,15 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/register" element={<Register />} />
-          <Route path='/users/:userId'>
+          <Route path="/users/:userId">
             <Route path="home" element={<Home />} />
             <Route path="todos" element={<Todos />} />
-            <Route path="albums" element={<Albums />} />
-            <Route path="albums/:albumId/photos" element={<Photos />} />
             <Route path="posts" element={<Posts />} />
             <Route path="posts/:postId/comments" element={<Comments />} />
           </Route>
           <Route path="*" element={<ErrorPage />} />
         </Routes>
-        {(isShowInfo == 1) && <Info setIsShowInfo={setIsShowInfo} />}
+        {isShowInfo === 1 && <Info setIsShowInfo={setIsShowInfo} />}
       </CurrentUser.Provider>
     </>
   )

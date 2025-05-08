@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { fetchData } from "./fetchData";
+import { apiService } from "../../services/genericServeices";
+
 function Delete({ type, itemId, setIsChange, deleteChildren = null, typeOfChild = null }) {
     const [process, setProcess] = useState(0);
     
@@ -22,9 +23,9 @@ function Delete({ type, itemId, setIsChange, deleteChildren = null, typeOfChild 
                 return;
         }
         try {
-            await fetchData({
-                type: `${type}/${itemId}`,
-                method: "DELETE",
+            await apiService.remove({
+                table: type,
+                id: itemId,
                 onSuccess: (result) => {
                     console.log("Delete successful:", result);
                     setIsChange(1);

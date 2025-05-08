@@ -1,6 +1,6 @@
 import express from 'express';
 import genericController from '../controller/genericConterller.js';
-import verifyToken from '../middleware/middleware.js'
+import {verifyToken} from '../middleware/middleware.js'
 const router = express.Router();
 
 router.use(verifyToken); 

@@ -1,5 +1,5 @@
-import genericDAL from "../Dal/genericDal.js";
-import { capitalize } from "./utils/utils.js";
+import genericDAL from "../../Dal/genericDal.js";
+import { capitalize } from "../utils/utils.js";
 
 const service = {
     getItem: async (table, query) => {

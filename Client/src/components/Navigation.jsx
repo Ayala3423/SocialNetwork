@@ -1,13 +1,22 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { CurrentUser } from './App';
+import Cookies from 'js-cookie';
 
 function Navigation({ setIsShowInfo }) {
-    const { currentUser, setCurrentUser } = useContext(CurrentUser);
+    const { currentUser, setCurrentUser } = null;
     const navigate = useNavigate();
-    
+
+    useEffect(() => {
+        user = Cookies.get("currentUser")
+        if (user) {
+            setCurrentUser(user)
+        }
+    }, [navigate])
+
     function logOutFunc() {
-        localStorage.removeItem("currentUser");
+        Cookies.remove("currentUser");
+        Cookies.remove("token");
         setCurrentUser(null);
         navigate('/home');
     }
@@ -20,7 +29,6 @@ function Navigation({ setIsShowInfo }) {
                         <ul><Link to="/home" >Home</Link></ul>
                         <ul><a onClick={() => setIsShowInfo(1)}>Info</a></ul>
                         <ul><Link to={`/users/${currentUser.id}/posts`} >Posts</Link></ul>
-                        <ul><Link to={`/users/${currentUser.id}/albums`} >Albums</Link></ul>
                         <ul><Link to={`/users/${currentUser.id}/todos`} >Todos</Link></ul>
                     </div>
                     <h3 className='userName'> Hello {currentUser.name}</h3>

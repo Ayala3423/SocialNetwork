@@ -1,15 +1,13 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { CurrentUser } from "./App";
-import { fetchData } from "./fetchData";
+import {apiService} from "../../services/genericServeices"
 
 function Add({ type, setIsChange, inputs, defaultValue, name = "Add" }) {
-    const { currentUser } = useContext(CurrentUser);
     const [isScreen, setIsScreen] = useState(0);
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         defaultValues: {
             ...defaultValue,
-            userId: currentUser.id
+            userId: 'null'
         },
     });
 
@@ -17,9 +15,8 @@ function Add({ type, setIsChange, inputs, defaultValue, name = "Add" }) {
         reset();
         setIsScreen(0);
         try {
-            await fetchData({
-                type,
-                method: "POST",
+            await apiService.create({
+                table: type,
                 body: data,
                 onSuccess: (result) => {
                     console.log("add successful:", result);

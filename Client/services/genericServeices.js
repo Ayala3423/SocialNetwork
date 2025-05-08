@@ -1,113 +1,53 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-const API_URL = "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+let getToken = () => Cookies.get('token');
 
-const apiService = {
-    getAll: async (table, params = {}) => {
-        try {
-            const token = Cookies.get('token');
-            const response = await axios.get(`${API_URL}/${table}`, {
-                params,
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
-            return response.data;
-        } catch (error) {
-            handleError(error, `GET ALL from ${table}`);
-        }
-    },
-
-    getById: async (table, id) => {
-        try {
-            const token = Cookies.get('token');
-            const response = await axios.get(`${API_URL}/${table}/${id}`, {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
-            return response.data;
-        } catch (error) {
-            handleError(error, `GET ${table}/${id}`);
-        }
-    },
-
-    getNested: async (baseTable, id, nestedTable, params = {}) => {
-        try {
-            const token = Cookies.get('token');
-            const response = await axios.get(`${API_URL}/${baseTable}/${id}/${nestedTable}`, {
-                params,
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
-            return response.data;
-        } catch (error) {
-            handleError(error, `GET ${baseTable}/${id}/${nestedTable}`);
-        }
-    },
-
-    create: async (table, data) => {
-        try {
-            const token = Cookies.get('token');
-            const response = await axios.post(`${API_URL}/${table}`, data, {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
-            return response.data;
-        } catch (error) {
-            handleError(error, `POST to ${table}`);
-        }
-    },
-
-    update: async (table, id, data) => {
-        try {
-            const token = Cookies.get('token');
-            const response = await axios.put(`${API_URL}/${table}/${id}`, data, {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
-            return response.data;
-        } catch (error) {
-            handleError(error, `PUT ${table}/${id}`);
-        }
-    },
-
-    patch: async (table, id, data) => {
-        try {
-            const token = Cookies.get('token');
-            const response = await axios.patch(`${API_URL}/${table}/${id}`, data, {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
-            return response.data;
-        } catch (error) {
-            handleError(error, `PATCH ${table}/${id}`);
-        }
-    },
-
-    remove: async (table, id) => {
-        try {
-            const token = Cookies.get('token');
-            const response = await axios.delete(`${API_URL}/${table}/${id}`, {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
-            return response.data;
-        } catch (error) {
-            handleError(error, `DELETE ${table}/${id}`);
-        }
-    }
-};
-
-function handleError(error, context) {
-    const message = error.response?.data?.message || error.message || "Unknown error";
-    console.error(`Error during ${context}:`, message);
-    throw new Error(message);
+export function setTokenGetter(fn) {
+    getToken = fn;
 }
 
-export default apiService;
+async function request(url, params = {}, method = 'GET', body = null, onSuccess, onError) {
+    try {
+        const token = getToken();
+        const config = {
+            method,
+            url: `${API_URL}/${url}`,
+            headers: {
+                authorization: `Bearer ${token}`
+            },
+            params
+        };
+        if (method !== 'GET' && method !== 'DELETE') {
+            config.body = body;
+        }
+        const response = await axios(config);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+        }
+        const data = await response.json();
+        if (onSuccess)
+            onSuccess(data);
+        return response.body;
+    } catch (error) {
+        console.error(error);
+        if (onError) onError(error.message);
+    }
+}
+
+export const apiService = {
+    getAll: (table, onSuccess, onError) =>
+        request({ url: table, method: 'GET', onSuccess, onError }),
+    getById: (table, id, onSuccess, onError) =>
+        request({ url: `${table}/${id}`, method: 'GET', onSuccess, onError }),
+    getNested: (base, id, nested, onSuccess, onError) =>
+        request({ url: `${base}/${id}/${nested}`, method: 'GET', params, onSuccess, onError }),
+    create: (table, data, onSuccess, onError) =>
+        request({ url: table, method: 'POST', data, onSuccess, onError }),
+    update: (table, id, data, onSuccess, onError) =>
+        request({ url: `${table}/${id}`, method: 'PUT', data, onSuccess, onError }),
+    patch: (table, id, data, onSuccess, onError) =>
+        request({ url: `${table}/${id}`, method: 'PATCH', data, onSuccess, onError }),
+    remove: (table, id, onSuccess, onError) =>
+        request({ url: `${table}/${id}`, method: 'DELETE', onSuccess, onError }),
+};
