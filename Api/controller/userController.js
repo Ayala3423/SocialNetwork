@@ -1,9 +1,12 @@
-import userService from "../../Bl/services/userService";
+import userService from "../../Bl/services/userService.js";
 
 const userController = {
     signup: async (req, res) => {
         try {
-            const newUser = await userService.signup(req.body);
+            const newUser = (await userService.signup(req.body));
+            console.log(`123456 ${newUser.id}`);
+            console.log(`123456 ${newUser.username}`);
+            console.log(`123456 ${req.body.password}`);
             const token = generateToken(newUser.id, newUser.username, req.body.password);
             res.status(201).json({
                 message: "User successfully registered",

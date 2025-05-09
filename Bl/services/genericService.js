@@ -1,4 +1,4 @@
-import genericDAL from "../../Dal/genericDal.js";
+import genericDAL from "../../Dal/dal/genericDal.js";
 import { capitalize } from "../utils/utils.js";
 
 const service = {

@@ -1,8 +1,10 @@
+import React from 'react';  
 import { useForm } from 'react-hook-form';
 import { useState, useContext } from 'react';
 import { CurrentUser } from './App';
 import Cookies from "js-cookie";
 import { validateFirstRegisterStep, validateSecondRegisterStep } from '../../utils/userValidator';
+import { signup } from '../../services/usersServices';
 import '../style/Register.css';
 
 function Register() {

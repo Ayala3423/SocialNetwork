@@ -13,6 +13,10 @@ body {
     height: 100vh;
 }
 
+input {
+    color: rgb(81, 79, 79);
+  }
+
 h2{
     margin-top: 23vh;
 }

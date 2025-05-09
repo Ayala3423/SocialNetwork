@@ -1,16 +1,18 @@
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { CurrentUser } from './App';
 import Cookies from 'js-cookie';
 
 function Navigation({ setIsShowInfo }) {
-    const { currentUser, setCurrentUser } = null;
+    // const { currentUser, setCurrentUser } = null;
+    let { currentUser, setCurrentUser } = useContext(CurrentUser);
     const navigate = useNavigate();
 
     useEffect(() => {
-        user = Cookies.get("currentUser")
-        if (user) {
-            setCurrentUser(user)
+        currentUser = Cookies.get("currentUser")
+        if (currentUser) {
+            setCurrentUser(currentUser)
         }
     }, [navigate])
 

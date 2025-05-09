@@ -9,7 +9,6 @@ console.log("ENV Loaded:", {
   DB_PASSWORD: process.env.DB_PASSWORD
 });
 
-
 const connection = await mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_ROOT,

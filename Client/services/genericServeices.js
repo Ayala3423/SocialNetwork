@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 let getToken = () => Cookies.get('token');
 
 export function setTokenGetter(fn) {
@@ -22,10 +22,7 @@ async function request(url, params = {}, method = 'GET', body = null, onSuccess,
             config.body = body;
         }
         const response = await axios(config);
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
-        }
-        const data = await response.json();
+        const data = response.data;
         if (onSuccess)
             onSuccess(data);
         return response.body;
@@ -37,17 +34,17 @@ async function request(url, params = {}, method = 'GET', body = null, onSuccess,
 
 export const apiService = {
     getAll: (table, onSuccess, onError) =>
-        request({ url: table, method: 'GET', onSuccess, onError }),
+        request(table, {}, 'GET', null, onSuccess, onError),
     getById: (table, id, onSuccess, onError) =>
-        request({ url: `${table}/${id}`, method: 'GET', onSuccess, onError }),
-    getNested: (base, id, nested, onSuccess, onError) =>
-        request({ url: `${base}/${id}/${nested}`, method: 'GET', params, onSuccess, onError }),
+        request(`${table}/${id}`, {}, 'GET', null, onSuccess, onError),
+    getNested: (base, id, nested, params, onSuccess, onError) =>
+        request(`${base}/${id}/${nested}`, params, 'GET', null, onSuccess, onError),
     create: (table, data, onSuccess, onError) =>
-        request({ url: table, method: 'POST', data, onSuccess, onError }),
+        request(table, {}, 'POST', data, onSuccess, onError),
     update: (table, id, data, onSuccess, onError) =>
-        request({ url: `${table}/${id}`, method: 'PUT', data, onSuccess, onError }),
+        request(`${table}/${id}`, {}, 'PUT', data, onSuccess, onError),
     patch: (table, id, data, onSuccess, onError) =>
-        request({ url: `${table}/${id}`, method: 'PATCH', data, onSuccess, onError }),
+        request(`${table}/${id}`, {}, 'PATCH', data, onSuccess, onError),
     remove: (table, id, onSuccess, onError) =>
-        request({ url: `${table}/${id}`, method: 'DELETE', onSuccess, onError }),
+        request(`${table}/${id}`, {}, 'DELETE', null, onSuccess, onError),
 };

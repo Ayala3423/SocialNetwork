@@ -1,4 +1,5 @@
 import { useState, createContext, useMemo } from 'react'
+import React from 'react';
 import { Route, Routes } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Navigation from './Navigation'
