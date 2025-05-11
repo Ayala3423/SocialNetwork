@@ -60,7 +60,7 @@ function Register() {
         await signup(
             fullUser,
             (createdUser) => {
-                navigate(`/home`);
+                navigate(`/users/${createdUser.id}/home`);
                 Cookies.set("token", createdUser.token);
                 setCurrentUser(createdUser.user);
                 localStorage.setItem("currentUser", JSON.stringify(createdUser.user));

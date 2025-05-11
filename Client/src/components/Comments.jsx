@@ -5,7 +5,7 @@ import { CurrentUser } from "./App";
 import Delete from "./Delete";
 import Update from "./Update";
 import Add from './Add';
-import {apiService} from "../../services/genericServeices"
+import { apiService } from "../../services/genericServeices"
 import '../style/Comments.css';
 
 function Comments() {
@@ -20,18 +20,19 @@ function Comments() {
         const fetchComments = async () => {
             setIsChange(0);
             try {
-                await apiService.getNested({
-                    base: "Posts",
-                    id: { postId },
-                    nested: "Comments",
-                    onSuccess: (comments) => {
+                await apiService.getNested(
+                    currentUser.id,
+                    "Posts",
+                    { postId },
+                    "Comments",
+                    (comments) => {
                         setComments(comments);
                     },
-                    onError: (error) => {
+                    (error) => {
                         console.error(error);
                         setError("Failed to fetch comments");
                     },
-                });
+                );
             } catch (error) {
                 console.error("Unexpected error:", error);
                 setError("Failed to fetch comments");
@@ -43,7 +44,7 @@ function Comments() {
     return (
         <>
             <div className='control'>
-                <button onClick={() => navigate(`/posts`)}>back to posts</button>
+                <button onClick={() => navigate(`/users/${currentUser.id}/posts`)}>back to posts</button>
                 <Add type={"Comments"} setIsChange={setIsChange} inputs={["name", "body"]} setData={setComments} defaultValue={{ postId: postId, email: currentUser.email }} name="Add Comment" />
             </div>
 

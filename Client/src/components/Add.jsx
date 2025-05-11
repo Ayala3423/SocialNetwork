@@ -19,6 +19,7 @@ function Add({ type, setIsChange, inputs, defaultValue, name = "Add" }) {
         setIsScreen(0);
         try {
             await apiService.create(
+                currentUser.id,
                 type,
                 data,
                 (result) => {

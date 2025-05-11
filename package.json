@@ -38,5 +38,18 @@
     "globals": "^15.9.0",
     "nodemon": "^3.1.10",
     "vite": "^5.4.1"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ayala3423/SocialNetwork.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ayala3423/SocialNetwork/issues"
+  },
+  "homepage": "https://github.com/Ayala3423/SocialNetwork#readme"
 }

@@ -46,6 +46,7 @@ function Posts() {
         }
         const fetchAllPosts = async () => {
             await apiService.getAll(
+                currentUser.id, 
                 "Posts",
                 (data) => setAllPosts(data),
                 (err) => setError(`Failed to fetch posts: ${err}`),
@@ -93,7 +94,7 @@ function Posts() {
                                     <p>#{post.id}</p>
                                     <h4>{post.title}</h4>
                                     <button onClick={() => displayDetailsFunc(post)}>More Details</button>
-                                    <button onClick={() => navigate(`/posts/${post.id}/comments`)}>Comments</button>
+                                    <button onClick={() => navigate(`/users/${currentUser.id}/posts/${post.id}/comments`)}>Comments</button>
                                     <Add type={"comments"} setIsChange={null} inputs={["name", "body"]} setData={setUserPosts} defaultValue={{ postId: post.id, email: currentUser.email }} name="Add Comment" />
                                 </div>
                                 <div className='post-actions'>

@@ -33,10 +33,12 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<Register />} />
-        <Route path="home" element={<Home />} />
-        <Route path="todos" element={<Todos />} />
-        <Route path="posts" element={<Posts />} />
-        <Route path="posts/:postId/comments" element={<Comments />} />
+        <Route path='/users/:userId'>
+          <Route path="home" element={<Home />} />
+          <Route path="todos" element={<Todos />} />
+          <Route path="posts" element={<Posts />} />
+          <Route path="posts/:postId/comments" element={<Comments />} />
+        </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       {isShowInfo === 1 && <Info setIsShowInfo={setIsShowInfo} />}

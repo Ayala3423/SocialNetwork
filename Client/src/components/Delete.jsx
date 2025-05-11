@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { apiService } from "../../services/genericServeices";
+import { useContext } from "react";
+import { CurrentUser } from "./App";
 
 function Delete({ type, itemId, setIsChange, deleteChildren = null, typeOfChild = null }) {
+    const { currentUser } = useContext(CurrentUser);
+
     const [process, setProcess] = useState(0);
-    
+
     async function deleteFunc(e) {
         if (deleteChildren) {
             if (confirm(`Deleting this ${type} will delete all of his ${typeOfChild}. Are you sure?`)) {
@@ -23,18 +27,19 @@ function Delete({ type, itemId, setIsChange, deleteChildren = null, typeOfChild 
                 return;
         }
         try {
-            await apiService.remove({
-                table: type,
-                id: itemId,
-                onSuccess: (result) => {
+            await apiService.remove(
+                currentUser.id,
+                type,
+                itemId,
+                (result) => {
                     console.log("Delete successful:", result);
                     setIsChange(1);
                 },
-                onError: (error) => {
+                (error) => {
                     console.error(`Failed to delete ${type} with ID ${itemId}: ${error}`);
                     alert("Failed to delete the item. Please try again.");
                 },
-            });
+            );
         } catch (error) {
             console.error("Unexpected error:", error);
         }

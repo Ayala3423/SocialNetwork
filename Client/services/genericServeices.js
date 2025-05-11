@@ -7,16 +7,15 @@ export function setTokenGetter(fn) {
     getToken = fn;
 }
 
-async function request(url, params = {}, method = 'GET', body = null, onSuccess, onError) {
+async function request(userId, url, params = {}, method = 'GET', body = null, onSuccess, onError) {
     try {
-        console.log("123", body);
-
+        console.log(body);
+        
         const token = getToken();
-
 
         const config = {
             method,
-            url: `${API_URL}/${url}`,
+            url: `${API_URL}/users/${userId}/${url}`,
             headers: {
                 'Content-Type': 'application/json',
                 authorization: `Bearer ${token}`
@@ -43,18 +42,18 @@ async function request(url, params = {}, method = 'GET', body = null, onSuccess,
 }
 
 export const apiService = {
-    getAll: (table, onSuccess, onError) =>
-        request(table, {}, 'GET', null, onSuccess, onError),
-    getById: (table, id, onSuccess, onError) =>
-        request(`${table}/${id}`, {}, 'GET', null, onSuccess, onError),
-    getNested: (base, id, nested, params, onSuccess, onError) =>
-        request(`${base}/${id}/${nested}`, params, 'GET', null, onSuccess, onError),
-    create: (table, data, onSuccess, onError) =>
-        request(table, {}, 'POST', data, onSuccess, onError),
-    update: (table, id, data, onSuccess, onError) =>
-        request(`${table}/${id}`, {}, 'PUT', data, onSuccess, onError),
-    patch: (table, id, data, onSuccess, onError) =>
-        request(`${table}/${id}`, {}, 'PATCH', data, onSuccess, onError),
-    remove: (table, id, onSuccess, onError) =>
-        request(`${table}/${id}`, {}, 'DELETE', null, onSuccess, onError),
+    getAll: (userId, table, onSuccess, onError) =>
+        request(userId, table, {}, 'GET', null, onSuccess, onError),
+    getById: (userId, table, id, onSuccess, onError) =>
+        request(userId, `${table}/${id}`, {}, 'GET', null, onSuccess, onError),
+    getNested: (userId, base, id, nested, params, onSuccess, onError) =>
+        request(userId, `${base}/${id}/${nested}`, params, 'GET', null, onSuccess, onError),
+    create: (userId, table, data, onSuccess, onError) =>
+        request(userId, table, {}, 'POST', data, onSuccess, onError),
+    update: (userId, table, id, data, onSuccess, onError) =>
+        request(userId, `${table}/${id}`, {}, 'PUT', data, onSuccess, onError),
+    patch: (userId, table, id, data, onSuccess, onError) =>
+        request(userId, `${table}/${id}`, {}, 'PATCH', data, onSuccess, onError),
+    remove: (userId, table, id, onSuccess, onError) =>
+        request(userId, `${table}/${id}`, {}, 'DELETE', null, onSuccess, onError),
 };

@@ -18,18 +18,19 @@ function Update({ type, itemId, setIsChange, inputs }) {
         e.target.reset();
         setScreen(0);
         try {
-            await apiService.patch({
-                table: type,
-                id: itemId,
-                body: formData,
-                onSuccess: (result) => {
+            await apiService.patch(
+                currentUser.id,
+                type,
+                itemId,
+                formData,
+                (result) => {
                     console.log("Update successful:", result);
                     setIsChange(1);
                 },
-                onError: (error) => {
+                (error) => {
                     console.log("Update was unsuccessful:", error);
                 },
-            });
+            );
         } catch (error) {
             console.error("Unexpected error:", error);
         }

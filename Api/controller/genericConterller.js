@@ -15,8 +15,10 @@ const genericConterller = {
     getAll: async (req, res) => {
         try {
             if (Object.keys(req.query).length === 0) {
+                
                 const items = await service.getAllItems(req.params.table);
-
+                console.log("all items", items);
+                
                 return res.status(200).json(items);
             }
             else {
@@ -29,8 +31,10 @@ const genericConterller = {
 
     post: async (req, res) => {
         try {
-            console.log("vb", req.params.table, req);
-            const item = await service.createItem(req.params.table, req.data);
+            console.log("vb", req.params.table, req.body);
+            const item = await service.createItem(req.params.table, req.body);
+            console.log("item", item);
+            
             res.status(201).json(item);
         } catch {
             res.status(500).json({ message: 'Server error' });
@@ -50,6 +54,8 @@ const genericConterller = {
 
     softDelete: async (req, res) => {
         try {
+            console.log("hello", req.params.table, req.params.id);
+            
             const deleted = await service.softDeleteItem(req.params.table, req.params.id);
             res.status(200).json(deleted);
         } catch {

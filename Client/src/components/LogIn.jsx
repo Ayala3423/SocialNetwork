@@ -10,7 +10,7 @@ import '../style/LogIn.css';
 
 function LogIn() {
     const { register, handleSubmit, reset } = useForm();
-    const { setCurrentUser } = useContext(CurrentUser);
+    const { currentUser, setCurrentUser } = useContext(CurrentUser);
     const [responsText, setResponstText] = useState("Fill the form and click the login button");
     const navigate = useNavigate();
 
@@ -24,10 +24,10 @@ function LogIn() {
             { username: data.username, password: data.password },
             (res) => {
                 if (res.user) {
-                    navigate(`/home`);
+                    localStorage.setItem("currentUser", JSON.stringify(res.user));
+                    navigate(`/users/${currentUser.id}/home`);
                     Cookies.set("token", res.token);
                     setCurrentUser(res.user);
-                    localStorage.setItem("currentUser", JSON.stringify(res.user));
                 } else {
                     setResponstText('Incorrect username or password');
                 }

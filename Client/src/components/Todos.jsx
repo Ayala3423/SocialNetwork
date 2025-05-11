@@ -21,6 +21,7 @@ function Todos() {
         const fetchTodos = async () => {
             try {
                 await apiService.getById(
+                    currentUser.id,
                     "Todos",
                     currentUser.id,
                     (result) => {
@@ -48,6 +49,7 @@ function Todos() {
         const data = e.target.checked;
         try {
             await apiService.patch(
+                currentUser.id,
                 "Todos",
                 itemId,
                 { completed: data },

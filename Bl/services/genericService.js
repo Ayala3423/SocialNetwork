@@ -10,17 +10,20 @@ const service = {
 
     getAllItems: async (table) => {  
         console.log(`table: ${table}`);
-        const model = genericDAL.getModelByName((table));
-        console.log(`model: ${model}`);
+        const model = genericDAL.getModelByName((table));    
+        console.log(`model: ${JSON.stringify(model)}`);
         
         const data = genericDAL.findAll(model);
-        console.log(`data: ${data}`);
+        console.log(`data: ${JSON.stringify(data)}`);
         
         return data;
     },
 
-    createItem: async (table, data) => {    
-        const model = genericDAL.getModelByName(capitalize(table));        
+    createItem: async (table, data) => {
+        console.log(`table: ${table}`);
+        console.log(`data: ${data}`);
+        
+        const model = genericDAL.getModelByName((table));        
         return genericDAL.createItem(model, data);
     },
 

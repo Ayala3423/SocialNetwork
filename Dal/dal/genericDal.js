@@ -7,15 +7,12 @@ import Passwords from '../Models/Passwords.js';
 const models = { Users, Posts, Todos, Comments, Passwords };
 
 const genericDAL = {
-    getModelByName: (name) => {  
-        console.log(models);
-        console.log(name);
-        
-        console.log(models[name]);
-        
+    getModelByName: (name) => { 
         return models[name]},
 
     findByField: (model, query) => {
+        console.log(`query: ${query}`, model);
+        
         const field = Object.keys(query)[0];
         const value = query[field];    
         return model.findAll({
@@ -25,15 +22,14 @@ const genericDAL = {
             }
         });
     },
-     
 
     findAll: (model) => {  
-              
+        
         return model.findAll({
             where: {
-                is_deleted: { [Sequelize.Op.not]: true }
+                is_deleted: { [Sequelize.Op.not]: false }
             }
-        })},    
+        })},
 
     createItem: (model, data) => model.create(data),
 
