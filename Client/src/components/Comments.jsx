@@ -12,30 +12,30 @@ function Comments() {
     const [comments, setComments] = useState("");
     const { postId } = useParams();
     const { currentUser } = useContext(CurrentUser);
-    const [setError] = useState(null);
+    const [error, setError] = useState(null);
     const [isChange, setIsChange] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchComments = async () => {
-            setIsChange(0);
+            setIsChange(prev => prev !== 0 ? 0 : prev);
             try {
                 await apiService.getNested(
                     currentUser.id,
                     "Posts",
-                    { postId },
+                    postId,
                     "Comments",
                     (comments) => {
                         setComments(comments);
                     },
                     (error) => {
-                        console.error(error);
+                        console.log(error);
                         setError("Failed to fetch comments");
                     },
                 );
             } catch (error) {
-                console.error("Unexpected error:", error);
-                setError("Failed to fetch comments");
+                console.log("Unexpected error:", error);
+                setError("Failed to fetch comments 2");
             }
         };
         fetchComments();
@@ -50,6 +50,7 @@ function Comments() {
 
             <div className='container'>
                 <h1>Comments</h1>
+                <h2>{error}</h2>
                 {comments.length > 0 ? (
                     <ul className='comments-list'>
                         {comments.map((comment) => (

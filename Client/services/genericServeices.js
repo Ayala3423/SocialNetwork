@@ -9,9 +9,11 @@ export function setTokenGetter(fn) {
 
 async function request(userId, url, params = {}, method = 'GET', body = null, onSuccess, onError) {
     try {
-        console.log(body);
-        
+        console.log("bla", userId, url, params, method, body = null, onSuccess, onError);
+
         const token = getToken();
+        console.log(`Token: ${token}`);
+        
 
         const config = {
             method,
@@ -26,15 +28,14 @@ async function request(userId, url, params = {}, method = 'GET', body = null, on
             config.data = body;
         }
         const response = await axios(config);
-        console.log(response);
-
+        
         const data = response.data;
         console.log(`API response: ${JSON.stringify(data)}`);
 
         if (onSuccess) {
             onSuccess(data)
         };
-        return response.body;
+        return data;
     } catch (error) {
         console.error(error);
         if (onError) onError(error.message);
@@ -44,10 +45,12 @@ async function request(userId, url, params = {}, method = 'GET', body = null, on
 export const apiService = {
     getAll: (userId, table, onSuccess, onError) =>
         request(userId, table, {}, 'GET', null, onSuccess, onError),
-    getById: (userId, table, id, onSuccess, onError) =>
-        request(userId, `${table}/${id}`, {}, 'GET', null, onSuccess, onError),
-    getNested: (userId, base, id, nested, params, onSuccess, onError) =>
-        request(userId, `${base}/${id}/${nested}`, params, 'GET', null, onSuccess, onError),
+    getByValue: (userId, table, params, onSuccess, onError) =>
+        request(userId, table, params, 'GET', null, onSuccess, onError),
+    getById: (userId, table, onSuccess, onError) =>
+        request(userId, `${table}`, {}, 'GET', null, onSuccess, onError),
+    getNested: (userId, base, id, nested, onSuccess, onError) =>
+        request(userId, `${base}/${id}/${nested}`, {}, 'GET', null, onSuccess, onError),
     create: (userId, table, data, onSuccess, onError) =>
         request(userId, table, {}, 'POST', data, onSuccess, onError),
     update: (userId, table, id, data, onSuccess, onError) =>

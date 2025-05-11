@@ -4,7 +4,9 @@ import { capitalize } from "../utils/utils.js";
 const service = {
     getItem: async (table, query) => {
         console.log(`table: ${table}`);
-        const model = genericDAL.getModelByName(capitalize(table));        
+        const model = genericDAL.getModelByName((table));
+        console.log(`model123: ${JSON.stringify(model)}`);
+                
         return genericDAL.findByField(model, query);
     },
 
@@ -17,6 +19,17 @@ const service = {
         console.log(`data: ${JSON.stringify(data)}`);
         
         return data;
+    },
+
+    getItemById: async (table, id) => {
+        const model = genericDAL.getModelByName(capitalize(table));
+        return genericDAL.findById(model, id);
+    },
+
+    getNestedItems: async (base, id, nested, query) => {
+        const baseModel = genericDAL.getModelByName(capitalize(base));
+        const nestedModel = genericDAL.getModelByName(capitalize(nested));
+        return genericDAL.findNested(baseModel, id, nestedModel, query);
     },
 
     createItem: async (table, data) => {

@@ -21,22 +21,23 @@ function Posts() {
     const { currentUser } = useContext(CurrentUser);
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     setIsChange(0);
-    //     if (!currentUser || !currentUser.id) {
-    //         setError("User is not logged in");
-    //         return;
-    //     }
-    //     const fetchUserPosts = async () => {
-    //         await apiService.getById(
-    //             "Posts",
-    //             currentUser.id,
-    //             (data) => setUserPosts(data),
-    //             (err) => setError(`Failed to fetch posts: ${err}`),
-    //         );
-    //     }
-    //     fetchUserPosts();
-    // }, [currentUser.id, isChange, userPosts]);
+    useEffect(() => {
+        setIsChange(0);
+        if (!currentUser || !currentUser.id) {
+            setError("User is not logged in");
+            return;
+        }
+        const fetchUserPosts = async () => {
+            await apiService.getByValue(
+                currentUser.id,
+                "Posts",
+                {userId: currentUser.id},
+                (data) => setUserPosts(data),
+                (err) => setError(`Failed to fetch posts: ${err}`),
+            );
+        }
+        fetchUserPosts();
+    }, [currentUser.id, isChange]);
 
     useEffect(() => {
         setIsChange(0);
@@ -95,7 +96,7 @@ function Posts() {
                                     <h4>{post.title}</h4>
                                     <button onClick={() => displayDetailsFunc(post)}>More Details</button>
                                     <button onClick={() => navigate(`/users/${currentUser.id}/posts/${post.id}/comments`)}>Comments</button>
-                                    <Add type={"comments"} setIsChange={null} inputs={["name", "body"]} setData={setUserPosts} defaultValue={{ postId: post.id, email: currentUser.email }} name="Add Comment" />
+                                    <Add type={"Comments"} setIsChange={null} inputs={["name", "body"]} setData={setUserPosts} defaultValue={{ postId: post.id, email: currentUser.email }} name="Add Comment" />
                                 </div>
                                 <div className='post-actions'>
                                     {post.userId == currentUser.id && <Update type={"posts"} itemId={post.id} setIsChange={setIsChange} inputs={["title", "body"]} />}

@@ -20,10 +20,10 @@ function Todos() {
         setIsChange(0);
         const fetchTodos = async () => {
             try {
-                await apiService.getById(
+                await apiService.getByValue(
                     currentUser.id,
                     "Todos",
-                    currentUser.id,
+                    { userId: currentUser.id },
                     (result) => {
                         console.log("Update successful:", result);
                         setUserTodos(result);
@@ -31,7 +31,7 @@ function Todos() {
                     (error) => {
                         console.log("Update was unsuccessful:", error);
                     },
-                );               
+                );
             } catch (err) {
                 console.error(err);
                 setError("Failed to fetch todos");
@@ -71,7 +71,7 @@ function Todos() {
             <div className='control'>
                 <Sort type={"todos"} options={["id", "title", "completed"]} userData={userTodos} setUserData={setUserTodos} />
                 <Search type={"todos"} setIsChange={setIsChange} options={["All", "ID", "Title", "Completed"]} data={userTodos} setData={setUserTodos} />
-                <Add type={"todos"} setIsChange={setIsChange} inputs={["title"]} defaultValue={{ userId: currentUser.id, completed: false }} />
+                <Add type={"Todos"} setIsChange={setIsChange} inputs={["title"]} defaultValue={{ userId: currentUser.id, completed: false }} />
             </div>
             <div className='container'>
                 <h1>Todos</h1>
