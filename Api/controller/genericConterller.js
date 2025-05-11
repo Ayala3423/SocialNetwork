@@ -4,12 +4,12 @@ const genericConterller = {
     
     getAllOrByValue: async (req, res) => {
         try {
-            console.log("req.params", req.query, req.params.table);
             if (Object.keys(req.query).length == 0) {
                 const items = await service.getAllItems(req.params.table);                
                 return res.status(200).json(items);
             } else {
-                const item = await service.getItem(req.params.table, req.query);
+                console.log("req.params", req.params);
+                const item = await service.getItem(req.params.table, req.params);
                 res.status(200).json(item);
             }
         } catch (error) {

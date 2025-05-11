@@ -9,11 +9,11 @@ export function setTokenGetter(fn) {
 
 async function request(userId, url, params = {}, method = 'GET', body = null, onSuccess, onError) {
     try {
-        console.log("bla", userId, url, params, method, body = null, onSuccess, onError);
+        console.log("bla", params);
 
         const token = getToken();
         console.log(`Token: ${token}`);
-        
+
 
         const config = {
             method,
@@ -24,11 +24,13 @@ async function request(userId, url, params = {}, method = 'GET', body = null, on
             },
             params
         };
-        if (method !== 'GET' && method !== 'DELETE') {
+        
+        if (method !== 'GET' && method !== 'DELETE' && body) {
             config.data = body;
         }
+
         const response = await axios(config);
-        
+
         const data = response.data;
         console.log(`API response: ${JSON.stringify(data)}`);
 
@@ -51,8 +53,8 @@ export const apiService = {
         request(userId, `${table}`, {}, 'GET', null, onSuccess, onError),
     getNested: (userId, base, id, nested, onSuccess, onError) =>
         request(userId, `${base}/${id}/${nested}`, {}, 'GET', null, onSuccess, onError),
-    create: (userId, table, data, onSuccess, onError) =>
-        request(userId, table, {}, 'POST', data, onSuccess, onError),
+    create: (userId, table, body, onSuccess, onError) =>
+        request(userId, table, {}, 'POST', body, onSuccess, onError),
     update: (userId, table, id, data, onSuccess, onError) =>
         request(userId, `${table}/${id}`, {}, 'PUT', data, onSuccess, onError),
     patch: (userId, table, id, data, onSuccess, onError) =>

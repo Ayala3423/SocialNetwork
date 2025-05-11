@@ -3,6 +3,7 @@ import { capitalize } from "../utils/utils.js";
 
 const service = {
     getItem: async (table, query) => {
+        console.log(`query: ${JSON.stringify(query)}`);
         console.log(`table: ${table}`);
         const model = genericDAL.getModelByName((table));
         console.log(`model123: ${JSON.stringify(model)}`);

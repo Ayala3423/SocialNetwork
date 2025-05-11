@@ -14,14 +14,14 @@ function Add({ type, setIsChange, inputs, defaultValue, name = "Add" }) {
         },
     });
 
-    const addFunc = async (data) => {
+    const addFunc = async (body) => {
         reset();
         setIsScreen(0);
         try {
             await apiService.create(
                 currentUser.id,
                 type,
-                data,
+                body,
                 (result) => {
                     console.log("add successful:", result);
                     setIsChange(1);
