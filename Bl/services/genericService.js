@@ -3,13 +3,20 @@ import { capitalize } from "../utils/utils.js";
 
 const service = {
     getItem: async (table, query) => {
+        console.log(`table: ${table}`);
         const model = genericDAL.getModelByName(capitalize(table));        
         return genericDAL.findByField(model, query);
     },
 
-    getAllItems: async (table) => {
-        const model = genericDAL.getModelByName(capitalize(table));
-        return genericDAL.findAll(model);
+    getAllItems: async (table) => {  
+        console.log(`table: ${table}`);
+        const model = genericDAL.getModelByName((table));
+        console.log(`model: ${model}`);
+        
+        const data = genericDAL.findAll(model);
+        console.log(`data: ${data}`);
+        
+        return data;
     },
 
     createItem: async (table, data) => {    

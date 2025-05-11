@@ -1,22 +1,15 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
 import { CurrentUser } from './App';
+import { useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
 
 function Navigation({ setIsShowInfo }) {
-    let { currentUser, setCurrentUser } = useContext(CurrentUser);
+    const { currentUser, setCurrentUser } = useContext(CurrentUser);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        currentUser = Cookies.get("currentUser")
-        if (currentUser) {
-            setCurrentUser(currentUser)
-        }
-    }, [navigate])
-
     function logOutFunc() {
-        Cookies.remove("currentUser");
+        localStorage.removeItem("currentUser");
         Cookies.remove("token");
         setCurrentUser(null);
         navigate('/home');

@@ -63,7 +63,7 @@ function Register() {
                 navigate(`/users/${createdUser.user.id}/home`);
                 Cookies.set("token", createdUser.token);
                 setCurrentUser(createdUser.user);
-                Cookies.set("currentUser", JSON.stringify(createdUser));
+                localStorage.setItem("currentUser", JSON.stringify(createdUser.user));
             },
             () => {
                 setResponstText("Registration failed. Please try again.");

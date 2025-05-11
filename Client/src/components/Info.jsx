@@ -5,11 +5,11 @@ function Info({ setIsShowInfo }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const cookieUser = JSON.parse(JSON.parse(JSON.parse(JSON.parse(Cookies.get('currentUser'))))).user;
+    const localUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    if (cookieUser) {
+    if (localUser) {
       try {
-        setUser(cookieUser);
+        setUser(localUser);
       } catch (err) {
         console.error('Failed to parse user from cookie:', err);
       }

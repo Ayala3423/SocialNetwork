@@ -2,9 +2,10 @@ import service from "../../Bl/services/genericService.js";
 
 const genericConterller = {
     get: async (req, res) => {
-        try {
+        try {            
             const item = await service.getItem(req.params.table, req.query);
-            if (!item) return res.status(404).json({ message: 'Not found' });
+            console.log(item);
+            
             res.status(200).json(item);
         } catch {
             res.status(500).json({ message: 'Server error' });
@@ -12,10 +13,12 @@ const genericConterller = {
     },
 
     getAll: async (req, res) => {
-        try {
+        try {            
             if (Object.keys(req.query).length === 0) {
                 const items = await service.getAllItems(req.params.table);
-                res.status(200).json(items);
+                console.log(items);
+                
+                return res.status(200).json(items);
             }
             else {
                 return genericConterller.get(req, res);            }

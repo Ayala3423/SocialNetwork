@@ -22,7 +22,8 @@ const Posts = sequelize.define("Posts", {
   deleted_at: {
     type: DataTypes.DATE,
     allowNull: true
-  }
+  },
+  
 });
 
 export default Posts;

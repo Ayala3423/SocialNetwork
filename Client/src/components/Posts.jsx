@@ -28,12 +28,12 @@ function Posts() {
             return;
         }
         const fetchUserPosts = async () => {
-            await apiService.getById({
-                table: "Posts",
-                id: currentUser.id,
-                onSuccess: (data) => setUserPosts(data),
-                onError: (err) => setError(`Failed to fetch posts: ${err}`),
-            });
+            await apiService.getById(
+                "Posts",
+                currentUser.id,
+                (data) => setUserPosts(data),
+                (err) => setError(`Failed to fetch posts: ${err}`),
+            );
         }
         fetchUserPosts();
     }, [currentUser.id, isChange]);
@@ -45,11 +45,11 @@ function Posts() {
             return;
         }
         const fetchAllPosts = async () => {
-            await apiService.getAll({
-                table: "Posts",
-                onSuccess: (data) => setAllPosts(data),
-                onError: (err) => setError(`Failed to fetch posts: ${err}`),
-            });
+            await apiService.getAll(
+                "Posts",
+                (data) => setAllPosts(data),
+                (err) => setError(`Failed to fetch posts: ${err}`),
+            );
         };
         fetchAllPosts();
     }, [isChange]);

@@ -14,29 +14,16 @@ import Info from './Info'
 import ErrorPage from './ErrorPage'
 import '../style/App.css'
 
-// יצירת קונטקסט עם ערך ברירת מחדל הגיוני
-export const CurrentUser = createContext({
-  currentUser: null,
-  setCurrentUser: () => {}
-})
+export const CurrentUser = createContext([]);
 
 function App() {
   const initialCurrentUser = useMemo(() => {
-    const cookieUser = Cookies.get('currentUser')
-    return cookieUser ? JSON.parse(cookieUser) : null
-  }, [])
+    const storedUser = localStorage.getItem("currentUser");
+    return storedUser ? JSON.parse(storedUser) : null;
+  }, []);
 
-  const [currentUser, _setCurrentUser] = useState(initialCurrentUser)
-  const [isShowInfo, setIsShowInfo] = useState(0)
-
-  const setCurrentUser = (user) => {
-    _setCurrentUser(user)
-    if (user) {
-      Cookies.set('currentUser', JSON.stringify(user), { expires: 1 })
-    } else {
-      Cookies.remove('currentUser')
-    }
-  }
+  const [currentUser, setCurrentUser] = useState(initialCurrentUser);
+  const [isShowInfo, setIsShowInfo] = useState(0);
 
   return (
     <CurrentUser.Provider value={{ currentUser, setCurrentUser }}>

@@ -10,10 +10,12 @@ export function setTokenGetter(fn) {
 async function request(url, params = {}, method = 'GET', body = null, onSuccess, onError) {
     try {
         const token = getToken();
+
         const config = {
             method,
             url: `${API_URL}/${url}`,
             headers: {
+                'Content-Type': 'application/json',
                 authorization: `Bearer ${token}`
             },
             params
@@ -21,8 +23,12 @@ async function request(url, params = {}, method = 'GET', body = null, onSuccess,
         if (method !== 'GET' && method !== 'DELETE') {
             config.body = body;
         }
-        const response = await axios(config);
-        const data = response.data;
+        const response = await axios(config).json();
+        console.log(response);
+
+        const data = response;
+        console.log(`API response: ${JSON.stringify(data)}`);
+
         if (onSuccess)
             onSuccess(data);
         return response.body;

@@ -24,11 +24,10 @@ function LogIn() {
             { username: data.username, password: data.password },
             (res) => {
                 if (res.user) {
-                    navigate(`/users/${res.user.id}/home`);
+                    navigate(`/users/${ res.user.id }/home`);
                     Cookies.set("token", res.token);
                     setCurrentUser(res.user);
-                    Cookies.set("currentUser", JSON.stringify(res.user));
-
+                    localStorage.setItem("currentUser", JSON.stringify(res.user));
                 } else {
                     setResponstText('Incorrect username or password');
                 }
