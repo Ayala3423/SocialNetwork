@@ -43,7 +43,7 @@ function Comments() {
     return (
         <>
             <div className='control'>
-                <button onClick={() => navigate(`/users/${currentUser.id}/posts`)}>back to posts</button>
+                <button onClick={() => navigate(`/posts`)}>back to posts</button>
                 <Add type={"Comments"} setIsChange={setIsChange} inputs={["name", "body"]} setData={setComments} defaultValue={{ postId: postId, email: currentUser.email }} name="Add Comment" />
             </div>
 

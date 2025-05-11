@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import {apiService} from "../../services/genericServeices"
+import { useContext } from "react";
+import { CurrentUser } from "./App";
+import { apiService } from "../../services/genericServeices"
 
 function Add({ type, setIsChange, inputs, defaultValue, name = "Add" }) {
+    const { currentUser } = useContext(CurrentUser);
     const [isScreen, setIsScreen] = useState(0);
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         defaultValues: {
             ...defaultValue,
-            userId: 'null'
+            userId: currentUser.id
         },
     });
 
@@ -15,18 +18,18 @@ function Add({ type, setIsChange, inputs, defaultValue, name = "Add" }) {
         reset();
         setIsScreen(0);
         try {
-            await apiService.create({
-                table: type,
-                body: data,
-                onSuccess: (result) => {
+            await apiService.create(
+                type,
+                data,
+                (result) => {
                     console.log("add successful:", result);
                     setIsChange(1);
                     reset();
                 },
-                onError: (error) => {
+                (error) => {
                     console.log("add was unsuccessful", error);
                 },
-            });
+            );
         } catch (error) {
             console.log("Unexpected error:", error);
         }

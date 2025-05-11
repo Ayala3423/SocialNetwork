@@ -2,10 +2,10 @@ import service from "../../Bl/services/genericService.js";
 
 const genericConterller = {
     get: async (req, res) => {
-        try {            
+        try {
             const item = await service.getItem(req.params.table, req.query);
             console.log(item);
-            
+
             res.status(200).json(item);
         } catch {
             res.status(500).json({ message: 'Server error' });
@@ -13,15 +13,15 @@ const genericConterller = {
     },
 
     getAll: async (req, res) => {
-        try {            
+        try {
             if (Object.keys(req.query).length === 0) {
                 const items = await service.getAllItems(req.params.table);
-                console.log(items);
-                
+
                 return res.status(200).json(items);
             }
             else {
-                return genericConterller.get(req, res);            }
+                return genericConterller.get(req, res);
+            }
         } catch {
             res.status(500).json({ message: 'Server error' });
         }
@@ -29,7 +29,8 @@ const genericConterller = {
 
     post: async (req, res) => {
         try {
-            const item = await service.createItem(req.params.table, req.body);
+            console.log("vb", req.params.table, req);
+            const item = await service.createItem(req.params.table, req.data);
             res.status(201).json(item);
         } catch {
             res.status(500).json({ message: 'Server error' });

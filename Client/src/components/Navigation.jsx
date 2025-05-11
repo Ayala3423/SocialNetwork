@@ -22,8 +22,8 @@ function Navigation({ setIsShowInfo }) {
                     <div className="left">
                         <ul><Link to="/home" >Home</Link></ul>
                         <ul><a onClick={() => setIsShowInfo(1)}>Info</a></ul>
-                        <ul><Link to={`/users/${currentUser.id}/posts`} >Posts</Link></ul>
-                        <ul><Link to={`/users/${currentUser.id}/todos`} >Todos</Link></ul>
+                        <ul><Link to={`/posts`} >Posts</Link></ul>
+                        <ul><Link to={`/todos`} >Todos</Link></ul>
                     </div>
                     <h3 className='userName'> Hello {currentUser.name}</h3>
                     <div className="right">

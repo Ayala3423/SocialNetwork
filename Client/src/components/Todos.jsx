@@ -20,14 +20,17 @@ function Todos() {
         setIsChange(0);
         const fetchTodos = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/todos/?userId=${currentUser.id}`);
-                if (response.ok) {
-                    const todos = await response.json();
-                    setUserTodos(todos);
-                    navigate(`/users/${currentUser.id}/todos`)
-                } else {
-                    throw new Error(`Error: ${response.status}`);
-                }
+                await apiService.getById(
+                    "Todos",
+                    currentUser.id,
+                    (result) => {
+                        console.log("Update successful:", result);
+                        setUserTodos(result);
+                    },
+                    (error) => {
+                        console.log("Update was unsuccessful:", error);
+                    },
+                );               
             } catch (err) {
                 console.error(err);
                 setError("Failed to fetch todos");

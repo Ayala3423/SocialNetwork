@@ -9,7 +9,10 @@ export function setTokenGetter(fn) {
 
 async function request(url, params = {}, method = 'GET', body = null, onSuccess, onError) {
     try {
+        console.log("123", body);
+
         const token = getToken();
+
 
         const config = {
             method,
@@ -21,16 +24,17 @@ async function request(url, params = {}, method = 'GET', body = null, onSuccess,
             params
         };
         if (method !== 'GET' && method !== 'DELETE') {
-            config.body = body;
+            config.data = body;
         }
-        const response = await axios(config).json();
+        const response = await axios(config);
         console.log(response);
 
-        const data = response;
+        const data = response.data;
         console.log(`API response: ${JSON.stringify(data)}`);
 
-        if (onSuccess)
-            onSuccess(data);
+        if (onSuccess) {
+            onSuccess(data)
+        };
         return response.body;
     } catch (error) {
         console.error(error);
