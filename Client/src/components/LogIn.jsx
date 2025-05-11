@@ -20,22 +20,23 @@ function LogIn() {
             setResponstText(error);
             return;
         }
-        await login({
-            body: { username: data.username, password: data.password },
-            onSuccess: (res) => {
-                if (res.length > 0) {
+        await login(
+            { username: data.username, password: data.password },
+            (res) => {
+                if (res.user) {
+                    navigate(`/users/${res.user.id}/home`);
                     Cookies.set("token", res.token);
                     setCurrentUser(res.user);
                     Cookies.set("currentUser", JSON.stringify(res.user));
-                    navigate(`/users/${res.user.id}/home`);
+
                 } else {
                     setResponstText('Incorrect username or password');
                 }
             },
-            onError: () => {
+            () => {
                 setResponstText('ERROR');
             }
-        });
+        );
         reset();
         setTimeout(() => setResponstText("Fill the form and click the login button"), 2000);
     };

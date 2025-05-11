@@ -1,4 +1,5 @@
-import React from 'react';  
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useState, useContext } from 'react';
 import { CurrentUser } from './App';
@@ -8,6 +9,7 @@ import { signup } from '../../services/usersServices';
 import '../style/Register.css';
 
 function Register() {
+    const navigate = useNavigate();
     const { register, handleSubmit: handleFirstSubmit, reset: resetFirstForm } = useForm();
     const { register: registerSecond, handleSubmit: handleSecondSubmit, reset: resetSecondForm } = useForm();
     const [registerIsCompleted, setRegisterIsCompleted] = useState(0);
@@ -55,18 +57,18 @@ function Register() {
             },
         };
 
-        await signup({
-            body: fullUser,
-            onSuccess: (createdUser) => {
+        await signup(
+            fullUser,
+            (createdUser) => {
+                navigate(`/users/${createdUser.user.id}/home`);
                 Cookies.set("token", createdUser.token);
-                setCurrentUser(createdUser);
+                setCurrentUser(createdUser.user);
                 Cookies.set("currentUser", JSON.stringify(createdUser));
-                navigate(`/users/${createdUser.id}/home`);
             },
-            onError: () => {
+            () => {
                 setResponstText("Registration failed. Please try again.");
             }
-        });
+        );
         resetSecondForm();
     };
 

@@ -1,14 +1,12 @@
 import userService from "../../Bl/services/userService.js";
+import { generateToken } from "../middleware/middleware.js";
 
 const userController = {
     signup: async (req, res) => {
         try {
-            const newUser = (await userService.signup(req.body));
-            console.log(`123456 ${newUser.id}`);
-            console.log(`123456 ${newUser.username}`);
-            console.log(`123456 ${req.body.password}`);
-            const token = generateToken(newUser.id, newUser.username, req.body.password);
-            res.status(201).json({
+            const newUser = await userService.signup(req.body);
+            const token = generateToken(newUser.id, newUser.username, req.body.password);  
+            return res.status(201).json({
                 message: "User successfully registered",
                 token,
                 user: newUser,
@@ -20,13 +18,13 @@ const userController = {
 
     login: async (req, res) => {
         try {
-            const newUser = await userService.login(req.body);
-            if (!newUser) return res.status(401).json({ message: 'Invalid credentials' });
-            const token = generateToken(newUser.id, newUser.username, req.body.password);
-            res.status(201).json({
+            const loginUser = await userService.login(req.body);
+            if (!loginUser) return res.status(401).json({ message: 'Invalid credentials' });
+            const token = generateToken(loginUser.id, loginUser.username, req.body.password);
+            return res.status(201).json({
                 message: "User successfully registered",
                 token,
-                user: newUser,
+                user: loginUser,
             });
         } catch (e) {
             res.status(500).json({ message: 'Server error' });

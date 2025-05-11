@@ -1,3 +1,4 @@
+import React from 'react';
 function Sort({ type, userData, setUserData }) {
     function sortFunc(e) {
         e.preventDefault();

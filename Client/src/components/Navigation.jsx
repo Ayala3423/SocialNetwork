@@ -5,7 +5,6 @@ import { CurrentUser } from './App';
 import Cookies from 'js-cookie';
 
 function Navigation({ setIsShowInfo }) {
-    // const { currentUser, setCurrentUser } = null;
     let { currentUser, setCurrentUser } = useContext(CurrentUser);
     const navigate = useNavigate();
 
@@ -44,7 +43,7 @@ function Navigation({ setIsShowInfo }) {
                     <div className="left">
                         <ul><Link to="/home" >Home</Link></ul>
                         <ul><Link to="/login" >Login</Link></ul>
-                        <ul><Link to="/register" >Register</Link></ul>
+                        <ul><Link to="/signup" >Register</Link></ul>
                     </div>
                 </nav >
             }

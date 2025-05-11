@@ -13,6 +13,8 @@ const registerAuth = async (endpoint, body, onSuccess, onError) => {
             }
         );
         const data = response.data;
+        console.log(data);
+
         if (onSuccess) onSuccess(data);
         return data;
     } catch (error) {
@@ -21,5 +23,5 @@ const registerAuth = async (endpoint, body, onSuccess, onError) => {
     }
 };
 
-export const signup = (body) => registerAuth("signup", body);
-export const login = (body) => registerAuth("login", body);
+export const signup = (body, onSuccess, onError) => registerAuth("signup", body, onSuccess, onError);
+export const login = (body, onSuccess, onError) => registerAuth("login", body, onSuccess, onError);

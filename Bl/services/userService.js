@@ -3,7 +3,9 @@ import { hashPassword, isPasswordValid } from "../utils/utils.js";
 
 const userService = {
     signup: async (userData) => {
-        const { username, password, ...rest } = userData.body;
+        console.log(userData);
+        
+        const { username, password, ...rest } = userData;
         const existingUser = await userDAL.findByUsername(username);
         if (existingUser) {
             throw new Error("Username already taken");

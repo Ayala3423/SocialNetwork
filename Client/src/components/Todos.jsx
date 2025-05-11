@@ -6,8 +6,8 @@ import Delete from './Delete';
 import Update from './Update';
 import Add from './Add';
 import Sort from './Sort';
-import { fetchData } from './fetchData';
 import '../style/Todos.css';
+import { apiService } from '../../services/genericServeices';
 
 function Todos() {
     const navigate = useNavigate();
@@ -44,18 +44,18 @@ function Todos() {
     async function completeFunc(e, itemId) {
         const data = e.target.checked;
         try {
-            await fetchData({
-                type: `todos/${itemId}`,
-                method: "PATCH",
-                body: { completed: data },
-                onSuccess: (result) => {
+            await apiService.patch(
+                "Todos",
+                itemId,
+                { completed: data },
+                (result) => {
                     console.log("Update successful:", result);
                     setIsChange(1);
                 },
-                onError: (error) => {
+                (error) => {
                     console.log("Update was unsuccessful:", error);
                 },
-            });
+            );
         } catch (error) {
             console.log("Unexpected error:", error);
         }
