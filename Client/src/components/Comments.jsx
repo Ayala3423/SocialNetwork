@@ -45,7 +45,7 @@ function Comments() {
         <>
             <div className='control'>
                 <button onClick={() => navigate(`/users/${currentUser.id}/posts`)}>back to posts</button>
-                <Add type={"Comments"} setIsChange={setIsChange} inputs={["name", "body"]} setData={setComments} defaultValue={{ postId: postId, email: currentUser.email }} name="Add Comment" />
+                <Add type={"Comments"} setIsChange={setIsChange} inputs={["name", "body"]} setData={setComments} defaultValue={{ postId: postId, name: currentUser.name }} name="Add Comment" />
             </div>
             <div className='container'>
                 <h1>Comments</h1>
@@ -58,8 +58,8 @@ function Comments() {
                                     {comment.body}
                                 </div>
                                 <div className="comment-actions">
-                                    {comment.email == currentUser.email && <Update type={"Comments"} itemId={comment.id} setIsChange={setIsChange} inputs={["name", "body"]} />}
-                                    {comment.email == currentUser.email && <Delete type={"Comments"} itemId={comment.id} setIsChange={setIsChange} />}
+                                    {comment.name == currentUser.name && <Update type={"Comments"} itemId={comment.id} setIsChange={setIsChange} inputs={["name", "body"]} />}
+                                    {comment.name == currentUser.name && <Delete type={"Comments"} itemId={comment.id} setIsChange={setIsChange} />}
                                 </div>
                             </li>
                         ))}

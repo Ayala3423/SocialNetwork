@@ -21,11 +21,15 @@ export const verifyToken = (req, res, next) => {
 };
 
 export const validateUserId = (req, res, next) => {
-  const { userId } = req.params;
+  
+  const requestedId = req.params.userId;
+  const authenticatedId = req.user.id;
+  console.log(requestedId, authenticatedId);
 
-  if (req.user.id != userId) {
-    return res.status(403).json({ message: "Access denied: user ID mismatch" });
+  if (requestedId != authenticatedId) {
+    return res.status(403).json({ error: 'Access denied' });
   }
 
   next();
 };
+

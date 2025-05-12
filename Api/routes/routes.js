@@ -12,14 +12,17 @@ router.route('/signup')
 router.use(verifyToken);
 
 router.route('/users/:userId/:table')
+    .all(validateUserId)
     .get(genericController.getAllOrByValue)
     .post(genericController.post);
 router.route('/users/:userId/:baseTable/:id/:table')
+    .all(validateUserId)
     .get(genericController.getNested)
     .post(genericController.post)
     .patch(genericController.update)
     .delete(genericController.softDelete);
 router.route('/users/:userId/:table/:id')
+    .all(validateUserId)
     .patch(genericController.update)
     .delete(genericController.softDelete);
 
