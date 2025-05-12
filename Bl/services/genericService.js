@@ -42,8 +42,8 @@ const service = {
         return genericDAL.updateFields(model, id, body);
     },
 
-    softDeleteItem: async (table, id) => {
-        const model = genericDAL.getModelByName(capitalize(table));
+    softDeleteItem: async (table, id) => {        
+        const model = genericDAL.getModelByName((table));
         return genericDAL.updateFields(model, id, {
             is_deleted: 0,
             deleted_at: new Date()
