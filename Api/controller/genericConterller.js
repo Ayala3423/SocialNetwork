@@ -1,11 +1,11 @@
 import service from "../../Bl/services/genericService.js";
 
 const genericConterller = {
-    
+
     getAllOrByValue: async (req, res) => {
         try {
             if (Object.keys(req.query).length == 0) {
-                const items = await service.getAllItems(req.params.table);                
+                const items = await service.getAllItems(req.params.table);
                 return res.status(200).json(items);
             } else {
                 console.log("req.params", req.params);
@@ -20,7 +20,7 @@ const genericConterller = {
     // get: async (req, res) => {
     //     try {
     //         console.log("req.params", req.query, req.params.table);
-            
+
     //         const item = await service.getItem(req.params.table, req.query);
     //         console.log(item);
 
@@ -58,9 +58,9 @@ const genericConterller = {
 
     getNested: async (req, res) => {
         try {
-            console.log("req.params12", req.data);
-            
+                console.log("req.params12", req);
             const { baseTable, id, table } = req.params;
+            console.log("123456", baseTable, id, table);
             const item = await service.getNestedItems(baseTable, id, table, req.body);
             res.status(200).json(item);
         } catch {
@@ -69,7 +69,7 @@ const genericConterller = {
     },
 
     post: async (req, res) => {
-        try {            
+        try {
             console.log("ayala", req.params.table, req.body);
             const item = await service.createItem(req.params.table, req.body);
             console.log("item", item);

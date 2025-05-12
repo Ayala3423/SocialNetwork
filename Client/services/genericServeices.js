@@ -10,21 +10,19 @@ export function setTokenGetter(fn) {
 async function request(userId, url, params = {}, method = 'GET', body = null, onSuccess, onError) {
     try {
         console.log("bla", userId, url, params, method, body, onSuccess, onError);
-
         const token = getToken();
-        console.log(`Token: ${token}`);
-
-
+        console.log(token);
+        
         const config = {
             method,
             url: `${API_URL}/users/${userId}/${url}`,
             headers: {
+                authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
-                authorization: `Bearer ${token}`
             },
             params
         };
-        
+
         if (method !== 'DELETE' && body) {
             config.data = body;
         }

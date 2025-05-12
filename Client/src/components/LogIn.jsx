@@ -25,7 +25,7 @@ function LogIn() {
             (res) => {
                 if (res.user) {
                     localStorage.setItem("currentUser", JSON.stringify(res.user));
-                    navigate(`/users/${currentUser.id}/home`);
+                    navigate(`/home`);
                     Cookies.set("token", res.token);
                     setCurrentUser(res.user);
                 } else {

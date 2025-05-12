@@ -12,11 +12,8 @@ const genericDAL = {
     },
 
     findByField: (model, query) => {
-        console.log(`query: ${JSON.stringify(query)}`);
         const field = Object.keys(query)[0];
-        const value = query[field];
-        console.log(`field: ${field}`, `value: ${value}`);
-        
+        const value = query[field];        
         return model.findAll({
             where: {
                 [field]: value,

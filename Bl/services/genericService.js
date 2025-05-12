@@ -6,19 +6,17 @@ const service = {
         console.log(`query: ${JSON.stringify(query)}`);
         console.log(`table: ${table}`);
         const model = genericDAL.getModelByName((table));
-        console.log(`model123: ${JSON.stringify(model)}`);
-                
         return genericDAL.findByField(model, query);
     },
 
-    getAllItems: async (table) => {  
+    getAllItems: async (table) => {
         console.log(`table: ${table}`);
-        const model = genericDAL.getModelByName((table));    
+        const model = genericDAL.getModelByName((table));
         console.log(`model: ${JSON.stringify(model)}`);
-        
+
         const data = genericDAL.findAll(model);
         console.log(`data: ${JSON.stringify(data)}`);
-        
+
         return data;
     },
 
@@ -27,22 +25,18 @@ const service = {
         return genericDAL.findById(model, id);
     },
 
-    getNestedItems: async (base, id, nested, query) => {
-        console.log(base, id, nested, JSON.stringify(query));
-        
+    getNestedItems: async (base, id, nested, body) => {
+        console.log("987654", base, id, nested, JSON.stringify(body));
         const baseModel = genericDAL.getModelByName((base));
         const nestedModel = genericDAL.getModelByName((nested));
-        
-        console.log(`baseModel: ${JSON.stringify(baseModel)}`);
-        console.log(`nestedModel: ${JSON.stringify(nestedModel)}`);
-        return genericDAL.findNested(baseModel, id, nestedModel, query);
+        return genericDAL.findNested(baseModel, id, nestedModel, body);
     },
 
     createItem: async (table, data) => {
         console.log(`table: ${table}`);
         console.log(`data: ${data}`);
-        
-        const model = genericDAL.getModelByName((table));        
+
+        const model = genericDAL.getModelByName((table));
         return genericDAL.createItem(model, data);
     },
 
