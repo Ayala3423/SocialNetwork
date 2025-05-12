@@ -26,9 +26,9 @@ const service = {
     },
 
     getNestedItems: async (base, id, nested, body) => {
-        console.log("987654", base, id, nested, JSON.stringify(body));
+        console.log("987654", base, id, nested, body);
         const baseModel = genericDAL.getModelByName((base));
-        const nestedModel = genericDAL.getModelByName((nested));
+        const nestedModel = genericDAL.getModelByName((nested)); 
         return genericDAL.findNested(baseModel, id, nestedModel, body);
     },
 
@@ -48,7 +48,7 @@ const service = {
     softDeleteItem: async (table, id) => {
         const model = genericDAL.getModelByName(capitalize(table));
         return genericDAL.updateFields(model, id, {
-            is_deleted: true,
+            is_deleted: 0,
             deleted_at: new Date()
         });
     },

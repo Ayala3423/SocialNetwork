@@ -13,7 +13,7 @@ const genericDAL = {
 
     findByField: (model, query) => {
         const field = Object.keys(query)[0];
-        const value = query[field];        
+        const value = query[field];
         return model.findAll({
             where: {
                 [field]: value,
@@ -41,24 +41,24 @@ const genericDAL = {
     },
 
     findNested: async (baseModel, id, nestedModel, query) => {
-        const baseInstance = await baseModel.findByPk(id, {
-            include: {
-                model: nestedModel,
-                where: {
-                    ...query,
-                    is_deleted: false
-                },
-                required: false
+        Object.keys(query).forEach(key => {
+            if (!isNaN(query[key])) {
+                query[key] = parseInt(query[key], 10);
             }
         });
-        return baseInstance;
+        console.log(query);
+        const items = await nestedModel.findAll({
+            where: {
+                ...query,
+                is_deleted: 1
+            }
+        });
+        return items;
     },
 
     createItem: (model, data) => {
-        console.log(`model10: ${model}`);
-        console.log(`data10: ${data}`);
-        
-        return model.create(data)},
+        return model.create(data)
+    },
 
     updateFields: async (model, id, updatedFields) => {
         const item = await model.findByPk(id);

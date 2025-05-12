@@ -49,8 +49,8 @@ export const apiService = {
         request(userId, table, params, 'GET', null, onSuccess, onError),
     getById: (userId, table, onSuccess, onError) =>
         request(userId, `${table}`, {}, 'GET', null, onSuccess, onError),
-    getNested: (userId, base, id, nested, body, onSuccess, onError) =>
-        request(userId, `${base}/${id}/${nested}`, {}, 'GET', body, onSuccess, onError),
+    getNested: (userId, base, id, nested, params, onSuccess, onError) =>
+        request(userId, `${base}/${id}/${nested}`, params, 'GET', null, onSuccess, onError),
     create: (userId, table, body, onSuccess, onError) =>
         request(userId, table, {}, 'POST', body, onSuccess, onError),
     update: (userId, table, id, data, onSuccess, onError) =>

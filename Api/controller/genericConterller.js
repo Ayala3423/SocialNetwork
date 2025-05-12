@@ -57,11 +57,10 @@ const genericConterller = {
     },
 
     getNested: async (req, res) => {
-        try {
-                console.log("req.params12", req);
+        try {            
             const { baseTable, id, table } = req.params;
             console.log("123456", baseTable, id, table);
-            const item = await service.getNestedItems(baseTable, id, table, req.body);
+            const item = await service.getNestedItems(baseTable, id, table, req.query);
             res.status(200).json(item);
         } catch {
             res.status(500).json({ message: 'Server error' });

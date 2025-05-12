@@ -1,9 +1,9 @@
-import sequelize from '../../DB/Config/db.js';  // הוספתי .js לקובץ המיובא
-import Users from '../Models/Users.js';  // הוספתי .js לקובץ המיובא
-import Todos from '../Models/Todos.js';  // הוספתי .js לקובץ המיובא
-import Posts from '../Models/Posts.js';  // הוספתי .js לקובץ המיובא
-import Comments from '../Models/Comments.js';  // הוספתי .js לקובץ המיובא
-import Passwords from '../Models/Passwords.js';  // הוספתי .js לקובץ המיובא
+import sequelize from '../../DB/Config/db.js';  
+import Users from '../Models/Users.js'; 
+import Todos from '../Models/Todos.js'; 
+import Posts from '../Models/Posts.js';  
+import Comments from '../Models/Comments.js';  
+import Passwords from '../Models/Passwords.js'; 
 
 Users.hasMany(Todos, { foreignKey: 'userId' });
 Todos.belongsTo(Users, { foreignKey: 'userId' });

@@ -36,7 +36,7 @@ export function validateSecondRegisterStep(data) {
 
     for (const field of requiredFields) {
         if (!isNonEmptyString(data[field])) {
-            return Field `'${field}' is required and must be a non - empty string`;
+            return `Field '${field}' is required and must be a non - empty string`;
         }
     }
 
