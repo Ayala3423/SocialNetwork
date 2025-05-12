@@ -1,6 +1,7 @@
 import { useState, createContext, useMemo } from 'react'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import Cookies from 'js-cookie'
 
 import Navigation from './Navigation'

@@ -9,10 +9,7 @@ export function setTokenGetter(fn) {
 
 async function request(userId, url, params = {}, method = 'GET', body = null, onSuccess, onError) {
     try {
-        console.log("bla", userId, url, params, method, body, onSuccess, onError);
-        const token = getToken();
-        console.log(token);
-        
+        const token = getToken();        
         const config = {
             method,
             url: `${API_URL}/users/${userId}/${url}`,
@@ -22,16 +19,11 @@ async function request(userId, url, params = {}, method = 'GET', body = null, on
             },
             params
         };
-
         if (method !== 'DELETE' && body) {
             config.data = body;
         }
-
         const response = await axios(config);
-
         const data = response.data;
-        console.log(`API response: ${JSON.stringify(data)}`);
-
         if (onSuccess) {
             onSuccess(data)
         };

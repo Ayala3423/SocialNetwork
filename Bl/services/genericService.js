@@ -33,15 +33,12 @@ const service = {
     },
 
     createItem: async (table, data) => {
-        console.log(`table: ${table}`);
-        console.log(`data: ${data}`);
-
         const model = genericDAL.getModelByName((table));
         return genericDAL.createItem(model, data);
     },
 
     updateItemField: async (table, id, body) => {
-        const model = genericDAL.getModelByName(capitalize(table));
+        const model = genericDAL.getModelByName((table));
         return genericDAL.updateFields(model, id, body);
     },
 
