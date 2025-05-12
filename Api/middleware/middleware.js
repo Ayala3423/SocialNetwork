@@ -19,3 +19,13 @@ export const verifyToken = (req, res, next) => {
     return res.status(403).json({ message: "The token is invalid" });
   }
 };
+
+export const validateUserId = (req, res, next) => {
+  const { userId } = req.params;
+
+  if (req.user.id != userId) {
+    return res.status(403).json({ message: "Access denied: user ID mismatch" });
+  }
+
+  next();
+};

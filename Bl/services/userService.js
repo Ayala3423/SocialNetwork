@@ -1,10 +1,12 @@
 import userDAL from "../../Dal/dal/userDal.js";
 import { hashPassword, isPasswordValid } from "../utils/utils.js";
+import { log } from "../utils/logger.js";
+
 
 const userService = {
     signup: async (userData) => {
-        console.log(userData);
-        
+        log('[POST]', { userData });
+
         const { username, password, ...rest } = userData;
         const existingUser = await userDAL.findByUsername(username);
         if (existingUser) {
@@ -17,6 +19,8 @@ const userService = {
     },
 
     login: async ({ username, password }) => {
+        log('[POST]', {  username, password });
+
         const user = await userDAL.findByUsername(username);
         if (!user) return null;
         const passwordEntry = await userDAL.getPasswordByUserId(user.id);

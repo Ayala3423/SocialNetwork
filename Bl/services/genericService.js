@@ -1,8 +1,11 @@
 import genericDAL from "../../Dal/dal/genericDal.js";
 import { capitalize } from "../utils/utils.js";
+import { log } from "../utils/logger.js";
 
 const service = {
     getItem: async (table, query) => {
+        log('[GET ALL]', { table, query });
+
         console.log(`query: ${JSON.stringify(query)}`);
         console.log(`table: ${table}`);
         const model = genericDAL.getModelByName((table));
@@ -10,6 +13,8 @@ const service = {
     },
 
     getAllItems: async (table) => {
+        log('[GET ALL]', { table });
+
         console.log(`table: ${table}`);
         const model = genericDAL.getModelByName((table));
         console.log(`model: ${JSON.stringify(model)}`);
@@ -21,28 +26,36 @@ const service = {
     },
 
     getItemById: async (table, id) => {
+        log('[GET]', { table, id });
+
         const model = genericDAL.getModelByName(capitalize(table));
         return genericDAL.findById(model, id);
     },
 
     getNestedItems: async (base, id, nested, body) => {
-        console.log("987654", base, id, nested, body);
+        log('[GET ALL]', { base, id, nested, body });
         const baseModel = genericDAL.getModelByName((base));
-        const nestedModel = genericDAL.getModelByName((nested)); 
+        const nestedModel = genericDAL.getModelByName((nested));
         return genericDAL.findNested(baseModel, id, nestedModel, body);
     },
 
     createItem: async (table, data) => {
+        log('[POST]', { table, data });
+
         const model = genericDAL.getModelByName((table));
         return genericDAL.createItem(model, data);
     },
 
     updateItemField: async (table, id, body) => {
+        log('[PATCH]', { table, id, body });
+
         const model = genericDAL.getModelByName((table));
         return genericDAL.updateFields(model, id, body);
     },
 
-    softDeleteItem: async (table, id) => {        
+    softDeleteItem: async (table, id) => {
+        log('[DELETE]', { table, id });
+
         const model = genericDAL.getModelByName((table));
         return genericDAL.updateFields(model, id, {
             is_deleted: 0,

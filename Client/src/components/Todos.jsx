@@ -69,8 +69,8 @@ function Todos() {
     return (
         <>
             <div className='control'>
-                <Sort type={"todos"} options={["id", "title", "completed"]} userData={userTodos} setUserData={setUserTodos} />
-                <Search type={"todos"} setIsChange={setIsChange} options={["All", "ID", "Title", "Completed"]} data={userTodos} setData={setUserTodos} />
+                <Sort type={"Todos"} options={["id", "title", "completed"]} userData={userTodos} setUserData={setUserTodos} />
+                <Search type={"Todos"} setIsChange={setIsChange} options={["All", "ID", "Title", "Completed"]} data={userTodos} setData={setUserTodos} />
                 <Add type={"Todos"} setIsChange={setIsChange} inputs={["title"]} defaultValue={{ userId: currentUser.id, completed: false }} />
             </div>
             <div className='container'>
@@ -84,8 +84,8 @@ function Todos() {
                                     <h4>{todo.title}</h4>
                                 </div>
                                 <div className="todo-actions">
-                                    <Update type={"todos"} itemId={todo.id} setIsChange={setIsChange} inputs={["title"]} />
-                                    <Delete type={"todos"} itemId={todo.id} setIsChange={setIsChange} />
+                                    <Update type={"Todos"} itemId={todo.id} setIsChange={setIsChange} inputs={["title"]} />
+                                    <Delete type={"Todos"} itemId={todo.id} setIsChange={setIsChange} />
                                     <button>
                                         <input
                                             type="checkbox"
