@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { apiService } from "../../services/genericServeices";
+import { useContext } from "react";
+import { CurrentUser } from "./App";
 function Update({ type, itemId, setIsChange, inputs }) {
     const [screen, setScreen] = useState(0);
     const [formData, setFormData] = useState({});
+    const { currentUser } = useContext(CurrentUser);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

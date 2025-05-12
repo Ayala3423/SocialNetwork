@@ -99,8 +99,8 @@ function Posts() {
                                     <Add type={"Comments"} setIsChange={null} inputs={["name", "body"]} setData={setUserPosts} defaultValue={{ postId: post.id, email: currentUser.email }} name="Add Comment" />
                                 </div>
                                 <div className='post-actions'>
-                                    {post.userId == currentUser.id && <Update type={"posts"} itemId={post.id} setIsChange={setIsChange} inputs={["title", "body"]} />}
-                                    {post.userId == currentUser.id && <Delete type={"posts"} itemId={post.id} setIsChange={setIsChange} />}
+                                    {post.userId == currentUser.id && <Update type={"Posts"} itemId={post.id} setIsChange={setIsChange} inputs={["title", "body"]} />}
+                                    {post.userId == currentUser.id && <Delete type={"Posts"} itemId={post.id} setIsChange={setIsChange} />}
                                 </div>
                             </div>
                         ))}

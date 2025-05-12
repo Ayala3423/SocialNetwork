@@ -61,6 +61,8 @@ const genericDAL = {
     },
 
     updateFields: async (model, id, updatedFields) => {
+        console.log(model, id, updatedFields);
+
         const item = await model.findByPk(id);
         if (item) {
             Object.assign(item, updatedFields);
