@@ -28,8 +28,13 @@ const service = {
     },
 
     getNestedItems: async (base, id, nested, query) => {
-        const baseModel = genericDAL.getModelByName(capitalize(base));
-        const nestedModel = genericDAL.getModelByName(capitalize(nested));
+        console.log(base, id, nested, JSON.stringify(query));
+        
+        const baseModel = genericDAL.getModelByName((base));
+        const nestedModel = genericDAL.getModelByName((nested));
+        
+        console.log(`baseModel: ${JSON.stringify(baseModel)}`);
+        console.log(`nestedModel: ${JSON.stringify(nestedModel)}`);
         return genericDAL.findNested(baseModel, id, nestedModel, query);
     },
 

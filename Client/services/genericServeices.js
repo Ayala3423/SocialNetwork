@@ -9,7 +9,7 @@ export function setTokenGetter(fn) {
 
 async function request(userId, url, params = {}, method = 'GET', body = null, onSuccess, onError) {
     try {
-        console.log("bla", params);
+        console.log("bla", userId, url, params, method, body, onSuccess, onError);
 
         const token = getToken();
         console.log(`Token: ${token}`);
@@ -25,7 +25,7 @@ async function request(userId, url, params = {}, method = 'GET', body = null, on
             params
         };
         
-        if (method !== 'GET' && method !== 'DELETE' && body) {
+        if (method !== 'DELETE' && body) {
             config.data = body;
         }
 
@@ -51,8 +51,8 @@ export const apiService = {
         request(userId, table, params, 'GET', null, onSuccess, onError),
     getById: (userId, table, onSuccess, onError) =>
         request(userId, `${table}`, {}, 'GET', null, onSuccess, onError),
-    getNested: (userId, base, id, nested, onSuccess, onError) =>
-        request(userId, `${base}/${id}/${nested}`, {}, 'GET', null, onSuccess, onError),
+    getNested: (userId, base, id, nested, body, onSuccess, onError) =>
+        request(userId, `${base}/${id}/${nested}`, {}, 'GET', body, onSuccess, onError),
     create: (userId, table, body, onSuccess, onError) =>
         request(userId, table, {}, 'POST', body, onSuccess, onError),
     update: (userId, table, id, data, onSuccess, onError) =>

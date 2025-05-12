@@ -15,7 +15,7 @@ router.route('/users/:userId/:table')
     .get(genericController.getAllOrByValue)
     .post(genericController.post);
 router.route('/users/:userId/:baseTable/:id/:table')
-    .get(genericController.getAllOrByValue)
+    .get(genericController.getNested)
     .post(genericController.post)
     .patch(genericController.update)
     .delete(genericController.softDelete);
