@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
-import Users from '../../Dal/Models/Users.js';
-import Posts from '../../Dal/Models/Posts.js';
-import Comments from '../../Dal/Models/Comments.js';
-import Todos from '../../Dal/Models/Todos.js';
-import Passwords from '../../Dal/Models/Passwords.js';
+import Users from '../../Server/Models/Users.js';
+import Posts from '../../Server/Models/Posts.js';
+import Comments from '../../Server/Models/Comments.js';
+import Todos from '../../Server/Models/Todos.js';
+import Passwords from '../../Server/Models/Passwords.js';
 import sequelize from './db.js';
 import bcrypt from 'bcrypt';
 

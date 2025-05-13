@@ -26,5 +26,4 @@ router.route('/users/:userId/:table/:id')
     .patch(genericController.update)
     .delete(genericController.softDelete);
 
-
 export default router;

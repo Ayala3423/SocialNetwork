@@ -1,4 +1,4 @@
-import userService from "../../Bl/services/userService.js";
+import userService from "../services/userService.js";
 import { generateToken } from "../middleware/middleware.js";
 
 const userController = {

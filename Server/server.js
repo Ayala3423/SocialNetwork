@@ -1,4 +1,4 @@
-import app from '../Api/app.js'; 
+import app from './app.js'; 
 import sequelize from '../DB/Config/db.js'; 
 
 const start = async () => {

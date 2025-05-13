@@ -1,4 +1,4 @@
-import userDAL from "../../Dal/dal/userDal.js";
+import userDAL from "../dal/userDal.js";
 import { hashPassword, isPasswordValid } from "../utils/utils.js";
 import { log } from "../utils/logger.js";
 

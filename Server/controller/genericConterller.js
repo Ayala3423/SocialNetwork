@@ -1,4 +1,4 @@
-import service from "../../Bl/services/genericService.js";
+import service from "../services/genericService.js";
 
 const genericConterller = {
 
