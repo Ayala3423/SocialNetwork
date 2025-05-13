@@ -1,5 +1,5 @@
-import Users from '../Models/Users.js'; 
-import Passwords from '../Models/Passwords.js'; 
+import Users from '../Models/Users.js';
+import Passwords from '../Models/Passwords.js';
 
 const userDAL = {
     findByUsername: (username) => {

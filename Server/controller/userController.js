@@ -5,7 +5,7 @@ const userController = {
     signup: async (req, res) => {
         try {
             const newUser = await userService.signup(req.body);
-            const token = generateToken(newUser.id, newUser.username, req.body.password);  
+            const token = generateToken(newUser.id, newUser.username, req.body.password);
             return res.status(201).json({
                 message: "User successfully registered",
                 token,

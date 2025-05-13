@@ -27,7 +27,7 @@ const genericConterller = {
     },
 
     getNested: async (req, res) => {
-        try {            
+        try {
             const { baseTable, id, table } = req.params;
             const item = await service.getNestedItems(baseTable, id, table, req.query);
             res.status(200).json(item);
@@ -46,7 +46,7 @@ const genericConterller = {
     },
 
     update: async (req, res) => {
-        try {            
+        try {
             const updated = await service.updateItemField(req.params.table, req.params.id, req.body);
             res.status(200).json(updated);
         } catch {

@@ -1,9 +1,9 @@
-import sequelize from '../../DB/Config/db.js';  
-import Users from '../Models/Users.js'; 
-import Todos from '../Models/Todos.js'; 
-import Posts from '../Models/Posts.js';  
-import Comments from '../Models/Comments.js';  
-import Passwords from '../Models/Passwords.js'; 
+import sequelize from '../../DB/Config/db.js';
+import Users from '../Models/Users.js';
+import Todos from '../Models/Todos.js';
+import Posts from '../Models/Posts.js';
+import Comments from '../Models/Comments.js';
+import Passwords from '../Models/Passwords.js';
 
 Users.hasMany(Todos, { foreignKey: 'userId' });
 Todos.belongsTo(Users, { foreignKey: 'userId' });

@@ -6,7 +6,6 @@ function Sort({ type, userData, setData }) {
         const sortData = [...userData].sort((a, b) => {
             let valueA = a[key];
             let valueB = b[key];
-
             if (key === "id") {
                 valueA = Number(a.id);
                 valueB = Number(b.id);
@@ -19,7 +18,6 @@ function Sort({ type, userData, setData }) {
                 valueA = a.completed ? 0 : 1;
                 valueB = b.completed ? 0 : 1;
             }
-
             if (valueA < valueB) return -1;
             if (valueA > valueB) return 1;
             return 0;

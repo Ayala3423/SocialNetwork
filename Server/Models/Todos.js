@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize'; 
-import sequelize from '../../DB/Config/db.js';  
+import { DataTypes } from 'sequelize';
+import sequelize from '../../DB/Config/db.js';
 
 const Todos = sequelize.define("Todos", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },

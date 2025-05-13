@@ -13,26 +13,20 @@ function Search({ setIsChange, options, data, setData }) {
 
     const searchFunc = (e) => {
         e.preventDefault();
-
         const { type, value } = searchParams;
-
         if (type === "All") {
             setIsChange(1);
             return;
         }
-
         if (!type || !value) {
             alert("Please select a type and enter a value");
             return;
         }
-
         const typeLower = type.toLowerCase();
-
         if (type === "ID" && !/^\d+$/.test(value)) {
             alert("Please enter a numeric ID");
             return;
         }
-
         if (type === "Completed") {
             const lower = value.toLowerCase();
             if (lower !== "true" && lower !== "false") {

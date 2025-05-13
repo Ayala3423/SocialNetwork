@@ -5,7 +5,6 @@ import { CurrentUser } from "./App";
 
 function Delete({ type, itemId, setIsChange, deleteChildren = null, typeOfChild = null }) {
     const { currentUser } = useContext(CurrentUser);
-
     const [process, setProcess] = useState(0);
 
     async function deleteFunc(e) {

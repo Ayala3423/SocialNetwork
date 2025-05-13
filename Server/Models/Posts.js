@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize'; 
-import sequelize from '../../DB/Config/db.js';  
+import { DataTypes } from 'sequelize';
+import sequelize from '../../DB/Config/db.js';
 
 const Posts = sequelize.define("Posts", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -23,7 +23,7 @@ const Posts = sequelize.define("Posts", {
     type: DataTypes.DATE,
     allowNull: true
   },
-  
+
 });
 
 export default Posts;
