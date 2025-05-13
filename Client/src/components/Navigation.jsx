@@ -2,17 +2,16 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CurrentUser } from './App';
 import { useContext, useEffect } from 'react';
+import { logOutFunc } from '../js/logout';
 import Cookies from 'js-cookie';
 
 function Navigation({ setIsShowInfo }) {
     const { currentUser, setCurrentUser } = useContext(CurrentUser);
     const navigate = useNavigate();
 
-    function logOutFunc() {
-        localStorage.removeItem("currentUser");
-        Cookies.remove("token");
+    function logOut() {
+        logOutFunc(navigate);
         setCurrentUser(null);
-        navigate('/home');
     }
 
     return (
@@ -27,7 +26,7 @@ function Navigation({ setIsShowInfo }) {
                     </div>
                     <h3 className='userName'> Hello {currentUser.name}</h3>
                     <div className="right">
-                        <ul onClick={logOutFunc}><a>LogOut</a></ul>
+                        <ul onClick={logOut}><a>LogOut</a></ul>
                     </div>
                 </nav>
             </div>
