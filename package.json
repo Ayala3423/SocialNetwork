@@ -9,9 +9,11 @@
     "preview": "vite preview",
     "start": "node Server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./Server/server.js"
+    "dev": "nodemon ./Server/server.js",
+    "seed": "node DB/Config/seed.js"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.7.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",

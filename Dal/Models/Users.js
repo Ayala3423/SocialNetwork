@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize'; 
-import sequelize from '../../DB/Config/db.js';  
+import { DataTypes } from 'sequelize';
+import sequelize from '../../DB/Config/db.js';
 
 const Users = sequelize.define("Users", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -10,7 +10,7 @@ const Users = sequelize.define("Users", {
     type: DataTypes.JSON,
     allowNull: false,
   },
-  phone: { type: DataTypes.INTEGER, allowNull: false, unique: true },
+  phone: { type: DataTypes.STRING, allowNull: false, unique: true },
   website: { type: DataTypes.STRING, allowNull: false, unique: true },
   company: {
     type: DataTypes.JSON,

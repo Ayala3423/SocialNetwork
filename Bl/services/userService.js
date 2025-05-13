@@ -7,7 +7,6 @@ const userService = {
     signup: async (userData) => {
         log('[POST]', { userData });
         const { username, password, ...rest } = userData;
-        console.log("user: ", username, password);
         const existingUser = await userDAL.findByUsername(username);
         if (existingUser) {
             throw new Error("Username already taken");
