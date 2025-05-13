@@ -6,8 +6,8 @@ import { log } from "../utils/logger.js";
 const userService = {
     signup: async (userData) => {
         log('[POST]', { userData });
-
         const { username, password, ...rest } = userData;
+        console.log("user: ", username, password);
         const existingUser = await userDAL.findByUsername(username);
         if (existingUser) {
             throw new Error("Username already taken");
@@ -19,16 +19,13 @@ const userService = {
     },
 
     login: async ({ username, password }) => {
-        log('[POST]', {  username, password });
-
+        log('[POST]', { username, password });
         const user = await userDAL.findByUsername(username);
         if (!user) return null;
         const passwordEntry = await userDAL.getPasswordByUserId(user.id);
         if (!passwordEntry) return null;
-
         const valid = await isPasswordValid(password, passwordEntry.Password);
         console.log(valid);
-
         return valid ? user : null;
     }
 };

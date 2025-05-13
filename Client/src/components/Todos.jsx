@@ -25,7 +25,6 @@ function Todos() {
                     "Todos",
                     { userId: currentUser.id },
                     (result) => {
-                        console.log("Update successful:", result);
                         setUserTodos(result);
                     },
                     (error) => {
@@ -69,7 +68,7 @@ function Todos() {
     return (
         <>
             <div className='control'>
-                <Sort type={"Todos"} options={["id", "title", "completed"]} userData={userTodos} setUserData={setUserTodos} />
+                <Sort type={"Todos"} options={["id", "title", "completed"]} userData={userTodos} setData={setUserTodos} />
                 <Search type={"Todos"} setIsChange={setIsChange} options={["All", "ID", "Title", "Completed"]} data={userTodos} setData={setUserTodos} />
                 <Add type={"Todos"} setIsChange={setIsChange} inputs={["title"]} defaultValue={{ userId: currentUser.id, completed: false }} />
             </div>

@@ -46,7 +46,6 @@ const genericDAL = {
                 query[key] = parseInt(query[key], 10);
             }
         });
-        console.log(query);
         const items = await nestedModel.findAll({
             where: {
                 ...query,
@@ -61,8 +60,6 @@ const genericDAL = {
     },
 
     updateFields: async (model, id, updatedFields) => {
-        console.log(model, id, updatedFields);
-
         const item = await model.findByPk(id);
         if (item) {
             Object.assign(item, updatedFields);

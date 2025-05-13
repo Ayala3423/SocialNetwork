@@ -25,7 +25,7 @@ function Comments() {
                     "Posts",
                     postId,
                     "Comments",
-                    {postId: postId},
+                    { postId: postId },
                     (comments) => {
                         setComments(comments);
                     },

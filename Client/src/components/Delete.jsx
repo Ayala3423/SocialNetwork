@@ -9,23 +9,6 @@ function Delete({ type, itemId, setIsChange, deleteChildren = null, typeOfChild 
     const [process, setProcess] = useState(0);
 
     async function deleteFunc(e) {
-        // if (deleteChildren) {
-        //     if (confirm(`Deleting this ${type} will delete all of his ${typeOfChild}. Are you sure?`)) {
-        //         setProcess(1);
-        //         deleteChildren({
-        //             type: typeOfChild,
-        //             params: { itemId },
-        //             onDeleteSuccess: (result) => {
-        //                 console.log(`Additional success handling for ${typeOfChild} ID ${result.id}`);
-        //             },
-        //             onDeleteError: (err, result) => {
-        //                 console.error(`Error handling for ${typeOfChild} ID ${result.id}: ${err}`);
-        //             },
-        //         });
-        //     }
-        //     else
-        //         return;
-        // }
         try {
             await apiService.remove(
                 currentUser.id,

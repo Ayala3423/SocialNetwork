@@ -24,8 +24,6 @@ export const validateUserId = (req, res, next) => {
   
   const requestedId = req.params.userId;
   const authenticatedId = req.user.id;
-  console.log(requestedId, authenticatedId);
-
   if (requestedId != authenticatedId) {
     return res.status(403).json({ error: 'Access denied' });
   }

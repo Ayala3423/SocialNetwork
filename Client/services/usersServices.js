@@ -13,8 +13,6 @@ const registerAuth = async (endpoint, body, onSuccess, onError) => {
             }
         );
         const data = response.data;
-        console.log(data);
-
         if (onSuccess) onSuccess(data);
         return data;
     } catch (error) {

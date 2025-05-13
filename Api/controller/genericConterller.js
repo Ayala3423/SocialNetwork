@@ -8,7 +8,6 @@ const genericConterller = {
                 const items = await service.getAllItems(req.params.table);
                 return res.status(200).json(items);
             } else {
-                console.log("req.params", req.params);
                 const item = await service.getItem(req.params.table, req.params);
                 res.status(200).json(item);
             }
@@ -30,7 +29,6 @@ const genericConterller = {
     getNested: async (req, res) => {
         try {            
             const { baseTable, id, table } = req.params;
-            console.log("123456", baseTable, id, table);
             const item = await service.getNestedItems(baseTable, id, table, req.query);
             res.status(200).json(item);
         } catch {
@@ -40,9 +38,7 @@ const genericConterller = {
 
     post: async (req, res) => {
         try {
-            console.log("ayala", req.params.table, req.body);
             const item = await service.createItem(req.params.table, req.body);
-            console.log("item", item);
             res.status(201).json(item);
         } catch {
             res.status(500).json({ message: 'Server error' });
@@ -60,8 +56,6 @@ const genericConterller = {
 
     softDelete: async (req, res) => {
         try {
-            console.log("hello", req.params.table, req.params.id);
-
             const deleted = await service.softDeleteItem(req.params.table, req.params.id);
             res.status(200).json(deleted);
         } catch {

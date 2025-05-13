@@ -6,7 +6,6 @@ function Info({ setIsShowInfo }) {
 
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('currentUser'));
-
     if (localUser) {
       try {
         setUser(localUser);

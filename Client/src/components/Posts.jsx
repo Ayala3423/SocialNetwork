@@ -31,7 +31,7 @@ function Posts() {
             await apiService.getByValue(
                 currentUser.id,
                 "Posts",
-                {userId: currentUser.id},
+                { userId: currentUser.id },
                 (data) => setUserPosts(data),
                 (err) => setError(`Failed to fetch posts: ${err}`),
             );
@@ -47,7 +47,7 @@ function Posts() {
         }
         const fetchAllPosts = async () => {
             await apiService.getAll(
-                currentUser.id, 
+                currentUser.id,
                 "Posts",
                 (data) => setAllPosts(data),
                 (err) => setError(`Failed to fetch posts: ${err}`),
@@ -78,8 +78,8 @@ function Posts() {
         <>
             <div className='control'>
                 <button onClick={() => setIsAllPosts((prev) => !prev)}>{isAllPost == 0 ? "All Posts" : "My Posts"}</button>
-                <Sort type={"Posts"} setIsChange={setIsChange} options={["id", "title"]} userData={userPosts} setUserData={setUserPosts} />
-                <Search type={"Posts"} setIsChange={setIsChange} options={["All", "ID", "Title"]} data={userPosts} setData={setUserPosts} />
+                <Sort type={"Posts"} setIsChange={setIsChange} options={["id", "title"]} userData={displayData} setData={setDisplayData} />
+                <Search type={"Posts"} setIsChange={setIsChange} options={["All", "ID", "Title"]} data={displayData} setData={setDisplayData} />
                 <Add type={"Posts"} setIsChange={setIsChange} inputs={["title", "body"]} setData={setUserPosts} defaultValue={{ userId: currentUser.id }} />
             </div>
             <div className="container">
