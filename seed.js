@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker';
-import Users from '../../Server/Models/Users.js';
-import Posts from '../../Server/Models/Posts.js';
-import Comments from '../../Server/Models/Comments.js';
-import Todos from '../../Server/Models/Todos.js';
-import Passwords from '../../Server/Models/Passwords.js';
-import sequelize from './db.js';
+import Users from './Server/Models/Users.js';
+import Posts from './Server/Models/Posts.js';
+import Comments from './Server/Models/Comments.js';
+import Todos from './Server/Models/Todos.js';
+import Passwords from './Server/Models/Passwords.js';
+import sequelize from './DB/Config/db.js';
 import bcrypt from 'bcrypt';
 
 async function seed() {

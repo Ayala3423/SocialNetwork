@@ -56,7 +56,6 @@ function Register() {
                 bs: data.bs,
             },
         };
-
         await signup(
             fullUser,
             (createdUser) => {
