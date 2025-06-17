@@ -23,7 +23,6 @@ const genericDAL = {
     },
 
     findAll: (model) => {
-
         return model.findAll({
             where: {
                 is_deleted: { [Sequelize.Op.not]: false }
